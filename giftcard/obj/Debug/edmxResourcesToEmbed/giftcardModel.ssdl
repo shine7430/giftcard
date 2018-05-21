@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="gifcardModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.7" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="t_apps">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="companyid" Type="int" />
+    <Property Name="client_id" Type="varchar" MaxLength="200" />
+    <Property Name="client_secret" Type="varchar" MaxLength="200" />
+    <Property Name="kdt_id" Type="varchar" MaxLength="50" />
+    <Property Name="appname" Type="varchar" MaxLength="200" />
+    <Property Name="expireddate" Type="datetime" Precision="0" />
+    <Property Name="status" Type="varchar" MaxLength="50" />
+    <Property Name="appcode" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="t_company">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="companycode" Type="varchar" MaxLength="200" />
+    <Property Name="companyname" Type="varchar" MaxLength="200" />
+    <Property Name="registerdate" Type="datetime" Precision="0" />
+    <Property Name="logo" Type="varchar" MaxLength="500" />
+  </EntityType>
+  <EntityType Name="t_user">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="username" Type="varchar" MaxLength="200" />
+    <Property Name="mobile" Type="varchar" MaxLength="200" />
+    <Property Name="registerdate" Type="datetime" Precision="0" />
+  </EntityType>
+  <EntityType Name="t_user2app">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="userid" Type="int" />
+    <Property Name="appid" Type="int" />
+  </EntityType>
+  <EntityContainer Name="gifcardModelStoreContainer">
+    <EntitySet Name="t_apps" EntityType="Self.t_apps" Schema="gifcard" store:Type="Tables" />
+    <EntitySet Name="t_company" EntityType="Self.t_company" Schema="gifcard" store:Type="Tables" />
+    <EntitySet Name="t_user" EntityType="Self.t_user" Schema="gifcard" store:Type="Tables" />
+    <EntitySet Name="t_user2app" EntityType="Self.t_user2app" Schema="gifcard" store:Type="Tables" />
+  </EntityContainer>
+</Schema>

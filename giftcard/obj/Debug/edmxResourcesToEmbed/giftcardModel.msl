@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="gifcardModelStoreContainer" CdmEntityContainer="gifcardEntities">
+    <EntitySetMapping Name="t_apps">
+      <EntityTypeMapping TypeName="gifcardModel.t_apps">
+        <MappingFragment StoreEntitySet="t_apps">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="companyid" ColumnName="companyid" />
+          <ScalarProperty Name="client_id" ColumnName="client_id" />
+          <ScalarProperty Name="client_secret" ColumnName="client_secret" />
+          <ScalarProperty Name="kdt_id" ColumnName="kdt_id" />
+          <ScalarProperty Name="appname" ColumnName="appname" />
+          <ScalarProperty Name="expireddate" ColumnName="expireddate" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="appcode" ColumnName="appcode" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="t_company">
+      <EntityTypeMapping TypeName="gifcardModel.t_company">
+        <MappingFragment StoreEntitySet="t_company">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="companycode" ColumnName="companycode" />
+          <ScalarProperty Name="companyname" ColumnName="companyname" />
+          <ScalarProperty Name="registerdate" ColumnName="registerdate" />
+          <ScalarProperty Name="logo" ColumnName="logo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="t_user">
+      <EntityTypeMapping TypeName="gifcardModel.t_user">
+        <MappingFragment StoreEntitySet="t_user">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="username" ColumnName="username" />
+          <ScalarProperty Name="mobile" ColumnName="mobile" />
+          <ScalarProperty Name="registerdate" ColumnName="registerdate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="t_user2app">
+      <EntityTypeMapping TypeName="gifcardModel.t_user2app">
+        <MappingFragment StoreEntitySet="t_user2app">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="userid" ColumnName="userid" />
+          <ScalarProperty Name="appid" ColumnName="appid" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

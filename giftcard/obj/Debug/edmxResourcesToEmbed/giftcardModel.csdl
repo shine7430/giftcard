@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="gifcardModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="t_apps">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="companyid" Type="Int32" />
+    <Property Name="client_id" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="client_secret" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="kdt_id" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="appname" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="expireddate" Type="DateTime" />
+    <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="appcode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="t_company">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="companycode" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="companyname" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="registerdate" Type="DateTime" />
+    <Property Name="logo" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="t_user">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="username" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="mobile" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="registerdate" Type="DateTime" />
+  </EntityType>
+  <EntityType Name="t_user2app">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="userid" Type="Int32" />
+    <Property Name="appid" Type="Int32" />
+  </EntityType>
+  <EntityContainer Name="gifcardEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="t_apps" EntityType="Self.t_apps" />
+    <EntitySet Name="t_company" EntityType="Self.t_company" />
+    <EntitySet Name="t_user" EntityType="Self.t_user" />
+    <EntitySet Name="t_user2app" EntityType="Self.t_user2app" />
+  </EntityContainer>
+</Schema>
