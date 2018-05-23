@@ -112,12 +112,15 @@
         $.ajax({
             type: "POST",
             async: false,
-            url: "../Handlers/GiftCardHandler.ashx",
+            url: "@Url.Action("giftcardtake")",
             contentType: "application/x-www-form-urlencoded", //必须有
-            data: { Action: "giftcardtake", openid: $("#hidopenid").val(), mobile: $("#txtContacterMP").val(), name: $("#txtname").val(), cardcode: $("#txtGidCode").val() },
+            data: { appcode:"@ViewBag.appcode", openid: "@ViewBag.openid", mobile: $("#txtContacterMP").val(), name: $("#txtname").val(), cardcode: $("#txtGidCode").val() },
             //currentorder.toString()
             success: function (returndata) {
                 var result = JSON.parse(returndata);
+                //console.log(result);
+                //layer.closeAll();
+                //return;
                 if (result.response.issuccess == 0) {
                     layer.closeAll();
                     layer.alert(result.response.msg, { icon: 5 });
@@ -155,10 +158,10 @@
         <div class="header">
             <div class="header-top" style="padding: 20px 0 20px 0;">
                 <div class="logo">
-
+                    <img class="face" style="width: 40px; height: 40px;" src="@ViewBag.headimgurl" />@ViewBag.nickname 
                 </div>
                 <div style="float: right">
-
+                    <img src="/images/logo-foot.png" style="width: 120px;" alt="" />
                 </div>
                 <div class="clearfix"></div>
             </div>
@@ -172,9 +175,10 @@
                             <h3 class="panel-title">礼品劵</h3>
                         </div>
                         <div class="panel-body">
-
                             <div class="form-group">
-                                <input type="hidden" value="okou5v6zJqXG1dSta-IjgTmxQ-dE" id="hidopenid" />
+                                @ViewBag.appcode
+                            </div>
+                            <div class="form-group">
                                 <input class="form-control" placeholder="姓名" name="name" id="txtname" />
                             </div>
                             <div class="form-group">

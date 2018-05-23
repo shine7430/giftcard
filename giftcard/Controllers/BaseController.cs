@@ -3,6 +3,7 @@ using System.Web;
 using System;
 using AllTrustUs.WXPayAPILib;
 using AllTrustUs.giftcard.Utility;
+using System.Collections.Generic;
 
 namespace AllTrustUs.giftcard.Controllers
 {
@@ -30,11 +31,39 @@ namespace AllTrustUs.giftcard.Controllers
             }
         }
 
+        public WeXUser CurrentWeXUser
+        {
+            get
+            {
+                if (Session["CurrentWeXUser"] is WeXUser)
+                {
+                    return (WeXUser)Session["CurrentWeXUser"];
+                }
+                else
+                {
+                    Log.Info("Get CurrentWeXUser", "=========" + DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss"));
+                    //Response.Redirect("~/login.aspx?flag=timeout&ActionPage=" + Server.UrlEncode(HttpContext.Current.Request.Url.PathAndQuery));
+                    //Response.Redirect("~/login.aspx");
+                    return null;
+                }
+            }
+            set
+            {
+                Session["CurrentWeXUser"] = value;
+            }
+        }
+
         public string getToken(string appcode)
         {
             string _kdt_id = "";
             string _client_id = "";
             string _client_secret = "";
+            giftcardEntities db = new giftcardEntities();
+            object[] obj = new object[1];
+            t_apps app = db.Database.SqlQuery<t_apps>("select * from t_apps where appcode='" + appcode + "'", obj).FirstOrDefaultAsync().Result;
+            _kdt_id = app.kdt_id;
+            _client_id = app.client_id;
+            _client_secret = app.client_secret;
             if (System.Web.HttpContext.Current.Cache["AccessToken_"+ _kdt_id] != null)
             {
                 return (string)System.Web.HttpContext.Current.Cache["AccessToken_" + _kdt_id];
@@ -88,6 +117,139 @@ namespace AllTrustUs.giftcard.Controllers
             public int expires_in { set; get; }
             public string scope { set; get; }
 
+
+        }
+
+        public class WeXUser
+        {
+            public string openid { get; set; }
+            public string nickname { get; set; }
+
+            private string _sex;
+            public string sex
+            {
+                get
+                {
+                    return this._sex == "1" ? "Male" : "famale";
+                }
+                set
+                {
+                    this._sex = value;
+                }
+            }
+            public string sexCN
+            {
+                get
+                {
+                    return this._sex == "1" ? "男" : "女";
+                }
+            }
+            public string language { get; set; }
+            public string city { get; set; }
+            public string province { get; set; }
+            public string country { get; set; }
+            public string headimgurl { get; set; }
+            public string MP { get; set; }
+            public string createdate { get; set; }
+            public string agencylevel { get; set; }
+            public string discount { get; set; }
+        }
+
+        public class JsonMessage
+        {
+            public static JsonMessage Build(bool _state, string _message, dynamic _callbackData)
+            {
+                JsonMessage jMessage = new JsonMessage
+                {
+                    state = _state,
+                    message = _message,
+                    callbackData = _callbackData
+                };
+                return jMessage;
+            }
+            private JsonMessage()
+            {
+            }
+            public bool state { get; protected set; }
+            public string message { get; protected set; }
+            public dynamic callbackData { get; protected set; }
+        }
+
+        public class InvokeResponse
+        {
+            public Response response
+            {
+                get;
+                set;
+            }
+            public error_response error_response
+            {
+                get;
+                set;
+            }
+        }
+
+
+        public class Response
+        {
+            public string coupon_type
+            {
+                get;
+                set;
+            }
+
+            public List<promocard> promocard
+            {
+                get;
+                set;
+
+            }
+        }
+        public class promocard
+        {
+            public string promocard_id
+            {
+                get;
+                set;
+            }
+            public string title
+            {
+                get;
+                set;
+            }
+            public string value
+            {
+                get;
+                set;
+            }
+            //  "promocard_id": "10422654",
+            //"title": "华宇测试0722",
+            //"value": "1.00",
+            //"condition": "无限制",
+            //"start_at": "2016-07-22 17:35:03",
+            //"end_at": "2016-07-30 17:34:23",
+            //"is_used": "0",
+            //"is_invalid": "0",
+            //"is_expired": 0,
+            //"background_color": "#55bd47",
+            //"detail_url": "https://wap.koudaitong.com/v2/showcase/coupon/detail?alias=1359928&id=10422654",
+            //"verify_code": "792873936041"
+        }
+
+        public class error_response
+        {
+            public string code
+            {
+                get;
+                set;
+            }
+
+            public string msg
+            {
+                get;
+                set;
+
+            }
 
         }
     }

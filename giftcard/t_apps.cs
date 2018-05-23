@@ -15,7 +15,6 @@ namespace AllTrustUs.giftcard
     public partial class t_apps
     {
         public int id { get; set; }
-        public Nullable<int> companyid { get; set; }
         public string client_id { get; set; }
         public string client_secret { get; set; }
         public string kdt_id { get; set; }

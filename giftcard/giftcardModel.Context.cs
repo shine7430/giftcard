@@ -13,10 +13,10 @@ namespace AllTrustUs.giftcard
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class gifcardEntities : DbContext
+    public partial class giftcardEntities : DbContext
     {
-        public gifcardEntities()
-            : base("name=gifcardEntities")
+        public giftcardEntities()
+            : base("name=giftcardEntities")
         {
         }
     
@@ -29,5 +29,6 @@ namespace AllTrustUs.giftcard
         public virtual DbSet<t_company> t_company { get; set; }
         public virtual DbSet<t_user> t_user { get; set; }
         public virtual DbSet<t_user2app> t_user2app { get; set; }
+        public virtual DbSet<giftcard> giftcard { get; set; }
     }
 }

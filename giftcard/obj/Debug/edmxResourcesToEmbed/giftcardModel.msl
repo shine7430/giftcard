@@ -1,11 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="gifcardModelStoreContainer" CdmEntityContainer="gifcardEntities">
+  <EntityContainerMapping StorageEntityContainer="giftcardModelStoreContainer" CdmEntityContainer="giftcardEntities">
     <EntitySetMapping Name="t_apps">
-      <EntityTypeMapping TypeName="gifcardModel.t_apps">
+      <EntityTypeMapping TypeName="giftcardModel.t_apps">
         <MappingFragment StoreEntitySet="t_apps">
           <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="companyid" ColumnName="companyid" />
           <ScalarProperty Name="client_id" ColumnName="client_id" />
           <ScalarProperty Name="client_secret" ColumnName="client_secret" />
           <ScalarProperty Name="kdt_id" ColumnName="kdt_id" />
@@ -17,7 +16,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="t_company">
-      <EntityTypeMapping TypeName="gifcardModel.t_company">
+      <EntityTypeMapping TypeName="giftcardModel.t_company">
         <MappingFragment StoreEntitySet="t_company">
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="companycode" ColumnName="companycode" />
@@ -28,7 +27,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="t_user">
-      <EntityTypeMapping TypeName="gifcardModel.t_user">
+      <EntityTypeMapping TypeName="giftcardModel.t_user">
         <MappingFragment StoreEntitySet="t_user">
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="username" ColumnName="username" />
@@ -38,11 +37,31 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="t_user2app">
-      <EntityTypeMapping TypeName="gifcardModel.t_user2app">
+      <EntityTypeMapping TypeName="giftcardModel.t_user2app">
         <MappingFragment StoreEntitySet="t_user2app">
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="userid" ColumnName="userid" />
           <ScalarProperty Name="appid" ColumnName="appid" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="giftcard">
+      <EntityTypeMapping TypeName="giftcardModel.giftcard">
+        <MappingFragment StoreEntitySet="giftcard">
+          <ScalarProperty Name="jumpurl" ColumnName="jumpurl" />
+          <ScalarProperty Name="enabled" ColumnName="enabled" />
+          <ScalarProperty Name="amount" ColumnName="amount" />
+          <ScalarProperty Name="usedname" ColumnName="usedname" />
+          <ScalarProperty Name="usedmobile" ColumnName="usedmobile" />
+          <ScalarProperty Name="usedopenid" ColumnName="usedopenid" />
+          <ScalarProperty Name="expireddate" ColumnName="expireddate" />
+          <ScalarProperty Name="forcompany" ColumnName="forcompany" />
+          <ScalarProperty Name="useddate" ColumnName="useddate" />
+          <ScalarProperty Name="isused" ColumnName="isused" />
+          <ScalarProperty Name="generatedate" ColumnName="generatedate" />
+          <ScalarProperty Name="PromoId" ColumnName="PromoId" />
+          <ScalarProperty Name="giftcardcode" ColumnName="giftcardcode" />
+          <ScalarProperty Name="id" ColumnName="id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

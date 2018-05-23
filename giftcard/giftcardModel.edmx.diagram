@@ -4,11 +4,12 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="71ad1ecb2f3f40fa8ef86e38b2aa1b4a" Name="Diagram1">
-        <EntityTypeShape EntityType="gifcardModel.t_apps" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="gifcardModel.t_company" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="gifcardModel.t_user" Width="1.5" PointX="6.625" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="gifcardModel.t_user2app" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
+      <Diagram DiagramId="84338b258ccd4e8ab647ae49a2bb904c" Name="Diagram1" ZoomLevel="80">
+        <EntityTypeShape EntityType="giftcardModel.t_apps" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="giftcardModel.t_company" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="giftcardModel.t_user" Width="1.5" PointX="6.5" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="giftcardModel.t_user2app" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="giftcardModel.giftcard" Width="1.5" PointX="2.75" PointY="2.875" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

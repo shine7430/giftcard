@@ -4,13 +4,31 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="gifcardModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.7" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="giftcardModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.7" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="giftcard">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="giftcardcode" Type="varchar" MaxLength="200" />
+          <Property Name="PromoId" Type="int" />
+          <Property Name="generatedate" Type="varchar" MaxLength="200" />
+          <Property Name="isused" Type="varchar" MaxLength="5" />
+          <Property Name="useddate" Type="varchar" MaxLength="200" />
+          <Property Name="forcompany" Type="varchar" MaxLength="200" />
+          <Property Name="expireddate" Type="varchar" MaxLength="200" />
+          <Property Name="usedopenid" Type="varchar" MaxLength="200" />
+          <Property Name="usedmobile" Type="varchar" MaxLength="200" />
+          <Property Name="usedname" Type="varchar" MaxLength="200" />
+          <Property Name="amount" Type="varchar" MaxLength="200" />
+          <Property Name="enabled" Type="varchar" MaxLength="200" />
+          <Property Name="jumpurl" Type="varchar" MaxLength="2000" />
+        </EntityType>
         <EntityType Name="t_apps">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="companyid" Type="int" />
           <Property Name="client_id" Type="varchar" MaxLength="200" />
           <Property Name="client_secret" Type="varchar" MaxLength="200" />
           <Property Name="kdt_id" Type="varchar" MaxLength="50" />
@@ -46,23 +64,22 @@
           <Property Name="userid" Type="int" />
           <Property Name="appid" Type="int" />
         </EntityType>
-        <EntityContainer Name="gifcardModelStoreContainer">
-          <EntitySet Name="t_apps" EntityType="Self.t_apps" Schema="gifcard" store:Type="Tables" />
-          <EntitySet Name="t_company" EntityType="Self.t_company" Schema="gifcard" store:Type="Tables" />
-          <EntitySet Name="t_user" EntityType="Self.t_user" Schema="gifcard" store:Type="Tables" />
-          <EntitySet Name="t_user2app" EntityType="Self.t_user2app" Schema="gifcard" store:Type="Tables" />
+        <EntityContainer Name="giftcardModelStoreContainer">
+          <EntitySet Name="giftcard" EntityType="Self.giftcard" Schema="giftcard" store:Type="Tables" />
+          <EntitySet Name="t_apps" EntityType="Self.t_apps" Schema="giftcard" store:Type="Tables" />
+          <EntitySet Name="t_company" EntityType="Self.t_company" Schema="giftcard" store:Type="Tables" />
+          <EntitySet Name="t_user" EntityType="Self.t_user" Schema="giftcard" store:Type="Tables" />
+          <EntitySet Name="t_user2app" EntityType="Self.t_user2app" Schema="giftcard" store:Type="Tables" />
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="gifcardModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="giftcardModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="t_apps">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="companyid" Type="Int32" />
           <Property Name="client_id" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="client_secret" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="kdt_id" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -98,23 +115,42 @@
           <Property Name="userid" Type="Int32" />
           <Property Name="appid" Type="Int32" />
         </EntityType>
-        <EntityContainer Name="gifcardEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="giftcardEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="t_apps" EntityType="Self.t_apps" />
           <EntitySet Name="t_company" EntityType="Self.t_company" />
           <EntitySet Name="t_user" EntityType="Self.t_user" />
           <EntitySet Name="t_user2app" EntityType="Self.t_user2app" />
+          <EntitySet Name="giftcard" EntityType="giftcardModel.giftcard" />
         </EntityContainer>
+        <EntityType Name="giftcard">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="giftcardcode" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="PromoId" Type="Int32" />
+          <Property Name="generatedate" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="isused" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="useddate" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="forcompany" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="expireddate" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="usedopenid" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="usedmobile" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="usedname" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="amount" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="enabled" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="jumpurl" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="gifcardModelStoreContainer" CdmEntityContainer="gifcardEntities">
+        <EntityContainerMapping StorageEntityContainer="giftcardModelStoreContainer" CdmEntityContainer="giftcardEntities">
           <EntitySetMapping Name="t_apps">
-            <EntityTypeMapping TypeName="gifcardModel.t_apps">
+            <EntityTypeMapping TypeName="giftcardModel.t_apps">
               <MappingFragment StoreEntitySet="t_apps">
                 <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="companyid" ColumnName="companyid" />
                 <ScalarProperty Name="client_id" ColumnName="client_id" />
                 <ScalarProperty Name="client_secret" ColumnName="client_secret" />
                 <ScalarProperty Name="kdt_id" ColumnName="kdt_id" />
@@ -126,7 +162,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="t_company">
-            <EntityTypeMapping TypeName="gifcardModel.t_company">
+            <EntityTypeMapping TypeName="giftcardModel.t_company">
               <MappingFragment StoreEntitySet="t_company">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="companycode" ColumnName="companycode" />
@@ -137,7 +173,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="t_user">
-            <EntityTypeMapping TypeName="gifcardModel.t_user">
+            <EntityTypeMapping TypeName="giftcardModel.t_user">
               <MappingFragment StoreEntitySet="t_user">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="username" ColumnName="username" />
@@ -147,11 +183,31 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="t_user2app">
-            <EntityTypeMapping TypeName="gifcardModel.t_user2app">
+            <EntityTypeMapping TypeName="giftcardModel.t_user2app">
               <MappingFragment StoreEntitySet="t_user2app">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="userid" ColumnName="userid" />
                 <ScalarProperty Name="appid" ColumnName="appid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="giftcard">
+            <EntityTypeMapping TypeName="giftcardModel.giftcard">
+              <MappingFragment StoreEntitySet="giftcard">
+                <ScalarProperty Name="jumpurl" ColumnName="jumpurl" />
+                <ScalarProperty Name="enabled" ColumnName="enabled" />
+                <ScalarProperty Name="amount" ColumnName="amount" />
+                <ScalarProperty Name="usedname" ColumnName="usedname" />
+                <ScalarProperty Name="usedmobile" ColumnName="usedmobile" />
+                <ScalarProperty Name="usedopenid" ColumnName="usedopenid" />
+                <ScalarProperty Name="expireddate" ColumnName="expireddate" />
+                <ScalarProperty Name="forcompany" ColumnName="forcompany" />
+                <ScalarProperty Name="useddate" ColumnName="useddate" />
+                <ScalarProperty Name="isused" ColumnName="isused" />
+                <ScalarProperty Name="generatedate" ColumnName="generatedate" />
+                <ScalarProperty Name="PromoId" ColumnName="PromoId" />
+                <ScalarProperty Name="giftcardcode" ColumnName="giftcardcode" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

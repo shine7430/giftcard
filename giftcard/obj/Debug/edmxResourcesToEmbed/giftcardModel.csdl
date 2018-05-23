@@ -1,11 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="gifcardModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+<Schema Namespace="giftcardModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
   <EntityType Name="t_apps">
     <Key>
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="companyid" Type="Int32" />
     <Property Name="client_id" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
     <Property Name="client_secret" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
     <Property Name="kdt_id" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -41,10 +40,30 @@
     <Property Name="userid" Type="Int32" />
     <Property Name="appid" Type="Int32" />
   </EntityType>
-  <EntityContainer Name="gifcardEntities" annotation:LazyLoadingEnabled="true">
+  <EntityContainer Name="giftcardEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="t_apps" EntityType="Self.t_apps" />
     <EntitySet Name="t_company" EntityType="Self.t_company" />
     <EntitySet Name="t_user" EntityType="Self.t_user" />
     <EntitySet Name="t_user2app" EntityType="Self.t_user2app" />
+    <EntitySet Name="giftcard" EntityType="giftcardModel.giftcard" />
   </EntityContainer>
+  <EntityType Name="giftcard">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="giftcardcode" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="PromoId" Type="Int32" />
+    <Property Name="generatedate" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="isused" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+    <Property Name="useddate" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="forcompany" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="expireddate" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="usedopenid" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="usedmobile" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="usedname" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="amount" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="enabled" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="jumpurl" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+  </EntityType>
 </Schema>
