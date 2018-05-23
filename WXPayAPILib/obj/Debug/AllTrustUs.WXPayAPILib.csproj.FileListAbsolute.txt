@@ -25,8 +25,8 @@ D:\Spreadtrum\21.水果\SweetesFruits\SquirrelPocket\WXPayAPILib\obj\Debug\AllTr
 D:\Spreadtrum\Source\Repos\giftcard\WXPayAPILib\bin\Debug\AllTrustUs.WXPayAPILib.dll
 D:\Spreadtrum\Source\Repos\giftcard\WXPayAPILib\bin\Debug\AllTrustUs.WXPayAPILib.pdb
 D:\Spreadtrum\Source\Repos\giftcard\WXPayAPILib\bin\Debug\LitJson.dll
-D:\Spreadtrum\Source\Repos\giftcard\WXPayAPILib\obj\Debug\AllTrustUs.WXPayAPILib.csprojAssemblyReference.cache
 D:\Spreadtrum\Source\Repos\giftcard\WXPayAPILib\obj\Debug\AllTrustUs.WXPayAPILib.csproj.CoreCompileInputs.cache
 D:\Spreadtrum\Source\Repos\giftcard\WXPayAPILib\obj\Debug\AllTrustUs.WXPayAPILib.csproj.CopyComplete
 D:\Spreadtrum\Source\Repos\giftcard\WXPayAPILib\obj\Debug\AllTrustUs.WXPayAPILib.dll
 D:\Spreadtrum\Source\Repos\giftcard\WXPayAPILib\obj\Debug\AllTrustUs.WXPayAPILib.pdb
+D:\Spreadtrum\Source\Repos\giftcard\WXPayAPILib\obj\Debug\AllTrustUs.WXPayAPILib.csprojAssemblyReference.cache
