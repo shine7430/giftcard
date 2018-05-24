@@ -65,5 +65,27 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="v_giftcard">
+      <EntityTypeMapping TypeName="giftcardModel.v_giftcard">
+        <MappingFragment StoreEntitySet="v_giftcard">
+          <ScalarProperty Name="enabledt" ColumnName="enabledt" />
+          <ScalarProperty Name="isusedt" ColumnName="isusedt" />
+          <ScalarProperty Name="jumpurl" ColumnName="jumpurl" />
+          <ScalarProperty Name="enabled" ColumnName="enabled" />
+          <ScalarProperty Name="amount" ColumnName="amount" />
+          <ScalarProperty Name="usedname" ColumnName="usedname" />
+          <ScalarProperty Name="usedmobile" ColumnName="usedmobile" />
+          <ScalarProperty Name="usedopenid" ColumnName="usedopenid" />
+          <ScalarProperty Name="expireddate" ColumnName="expireddate" />
+          <ScalarProperty Name="forcompany" ColumnName="forcompany" />
+          <ScalarProperty Name="useddate" ColumnName="useddate" />
+          <ScalarProperty Name="isused" ColumnName="isused" />
+          <ScalarProperty Name="generatedate" ColumnName="generatedate" />
+          <ScalarProperty Name="PromoId" ColumnName="PromoId" />
+          <ScalarProperty Name="giftcardcode" ColumnName="giftcardcode" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

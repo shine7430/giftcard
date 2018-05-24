@@ -9,7 +9,7 @@ namespace AllTrustUs.giftcard
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-{version}.js"));
+                        "~/Scripts/jquery.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
@@ -25,6 +25,19 @@ namespace AllTrustUs.giftcard
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+
+            bundles.Add(new StyleBundle("~/Content/kendoUI/css").Include(
+                      "~/Content/JQueryControl/kendoUI/styles/kendo.common.min.css",
+                      "~/Content/JQueryControl/kendoUI/CustomizeTheme/Silver/kendo.custom.css"));
+            bundles.Add(new ScriptBundle("~/Content/kendoUI").Include(
+                      "~/Content/JQueryControl/kendoUI/js/kendo.all.min.js",
+                      "~/Content/JQueryControl/kendoUI/js/jszip.min.js"));
+
+
+            bundles.Add(new ScriptBundle("~/Content/layer").Include(
+                      "~/Content/layer/layer.js"));
+            bundles.Add(new StyleBundle("~/Content/layer/css").Include(
+                      "~/Content/layer/skin/layer.css"));
         }
     }
 }

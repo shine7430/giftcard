@@ -1,0 +1,6 @@
+2018-05-23 16:08:27.414 ERROR HttpService: System.Net.WebException: 无法连接到远程服务器 ---> System.Net.Sockets.SocketException: 由于连接方在一段时间后没有正确答复或连接的主机没有反应，连接尝试失败。 106.75.113.140:443
+   在 System.Net.Sockets.Socket.DoConnect(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   在 System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 System.Net.HttpWebRequest.GetResponse()
+   在 AllTrustUs.WXPayAPILib.HttpService.Get(String url) 位置 D:\Spreadtrum\Source\Repos\giftcard\WXPayAPILib\lib\HttpService.cs:行号 160

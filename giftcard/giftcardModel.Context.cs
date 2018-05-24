@@ -30,5 +30,6 @@ namespace AllTrustUs.giftcard
         public virtual DbSet<t_user> t_user { get; set; }
         public virtual DbSet<t_user2app> t_user2app { get; set; }
         public virtual DbSet<giftcard> giftcard { get; set; }
+        public virtual DbSet<v_giftcard> v_giftcard { get; set; }
     }
 }

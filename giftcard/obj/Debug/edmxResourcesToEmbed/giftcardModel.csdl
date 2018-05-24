@@ -46,6 +46,7 @@
     <EntitySet Name="t_user" EntityType="Self.t_user" />
     <EntitySet Name="t_user2app" EntityType="Self.t_user2app" />
     <EntitySet Name="giftcard" EntityType="giftcardModel.giftcard" />
+    <EntitySet Name="v_giftcard" EntityType="giftcardModel.v_giftcard" />
   </EntityContainer>
   <EntityType Name="giftcard">
     <Key>
@@ -65,5 +66,28 @@
     <Property Name="amount" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
     <Property Name="enabled" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
     <Property Name="jumpurl" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="v_giftcard">
+    <Key>
+      <PropertyRef Name="id" />
+      <PropertyRef Name="isusedt" />
+      <PropertyRef Name="enabledt" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="giftcardcode" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="PromoId" Type="Int32" />
+    <Property Name="generatedate" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="isused" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+    <Property Name="useddate" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="forcompany" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="expireddate" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="usedopenid" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="usedmobile" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="usedname" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="amount" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="enabled" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="jumpurl" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+    <Property Name="isusedt" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+    <Property Name="enabledt" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
   </EntityType>
 </Schema>

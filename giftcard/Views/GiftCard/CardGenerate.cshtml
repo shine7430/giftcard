@@ -1,0 +1,377 @@
+﻿
+@{
+    ViewBag.Title = "CardGenerate";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Styles.Render("~/Content/css")
+@Styles.Render("/Content/kendoUI/css")
+@Styles.Render("~/Content/layer/css")
+
+@Scripts.Render("~/Content/kendoUI")
+@Scripts.Render("~/Content/layer")
+
+
+<input type="hidden" id="hidresult" value="@ViewBag.result" />
+
+
+<script>
+
+    $(function () {
+
+        ShowSingle();
+        //ShowGiftCode();
+    })
+
+    function ShowSingle() {
+        var _Logs = [];
+        var _data = JSON.parse($("#hidresult").val()).response.groups;
+        $.each(_data, function (i,e) {
+
+            e.denominations = parseFloat(e.denominations / 100).toFixed(2);
+            if (e.is_invalid == "0") {
+                e.is_invalid = "有效";
+            }
+            else {
+                e.is_invalid = "过期";
+            }
+        })
+        ShowGiftCodeList(_data);
+    }
+
+    function ShowGiftCodeList(_Logs) {
+
+        
+        $("#tableSingle").kendoGrid({
+            //toolbar: ["excel"],
+            excel: {
+                fileName: "果切预定清单.xlsx",
+                allPages: true
+            },
+            dataSource: {
+                data: _Logs,
+                schema: {
+                    model: {
+                        fields: {
+                            title: { type: "string" },
+                            id: { type: "string" },
+                            valid_start_time: { type: "string" },
+                            valid_end_time: { type: "string" },
+                            is_limit: { type: "string" },
+                            total_qty: { type: "string" },
+                            stock_qty: { type: "string" },
+                            total_take: { type: "string" },
+                            denominations: { type: "string" },
+                            is_invalid: { type: "string" }
+                        }
+                    }
+                },
+                pageSize: 20
+            },
+            //height: 1000,
+            scrollable: false,
+            sortable: true,
+            groupable: false,
+            filterable: {
+                //extra: true,
+                operators: {
+                    string: {
+                        contains: "Contains",
+                        startswith: "Starts with",
+                        endswith: "End with"
+                    }
+                }
+            },
+            columnMenu: false,
+            pageable: true,
+            pageable: {
+                input: true,
+                numeric: false,
+                buttonCount: 10,
+                pageSizes: true
+            },
+            columns: [
+                //{ field: "id", width: "3%", title: "id", encoded: false },
+                { field: "title", width: "10%", title: "标题", encoded: false },
+                { field: "denominations", width: "5%", title: "金额", encoded: false },
+                { field: "total_take", width: "5%", title: "已领用", encoded: false },
+                { field: "total_qty", width: "5%", title: "总数", encoded: false },
+                { field: "stock_qty", width: "5%", title: "库存", encoded: false },
+                { field: "is_limit", width: "5%", title: "限制", encoded: false },
+                { field: "valid_start_time", width: "5%", title: "开始日期", encoded: false, format: "{0:yyyy/MM/dd}" },
+                { field: "valid_end_time", width: "5%", title: "结束日期", encoded: false, format: "{0:yyyy/MM/dd}" },
+                {
+                    field: "is_invalid", width: "5%", title: "状态", encoded: false, template: function (e) {
+
+                        var _is_invalid = e.is_invalid;
+                        var _html = "";
+                        if (_is_invalid == "有效") {
+                            _html = '<span class="bg-success text-white">有效</span>';
+                        }
+                        else {
+                            _html = '<span class="bg-secondary text-white">过期</span>';
+                        }
+                        return _html
+
+
+                    }, filterable: {
+                        multi: true,
+                        dataSource: [{
+                            is_invalid: "有效",
+                        }, {
+                            is_invalid: "过期",
+                        }],
+                        checkAll: false
+                    }
+                },
+                {
+                    width: "10%",
+                    template: function (e) {
+
+                        var _is_invalid = e.is_invalid;
+                        var _html = "<a href='#' onclick='ShowGiftCode(" + e.id + ")' id='btnview" + e.id + "'  data-value='" + e.id + "'>查看码库</a>";
+                        if (_is_invalid == "有效") {
+                            _html += " <a  href='#' id='btn" + e.id + "' data-value='" + e.id + "'>重置</a>";
+                        }
+                        return _html
+
+
+                    },
+                    headerTemplate: ""
+                }
+
+            ]
+        });
+
+    }
+    var currentid = "";
+    function ShowGiftCode(id) {
+        var _Logs = [];
+        currentid = id
+        layer.load(2);
+        $.ajax({
+            type: "POST",
+            async: false,
+            url: "@Url.Action("getgiftcard")",
+            contentType: "application/x-www-form-urlencoded", //必须有
+            data: { PromoId: id },
+            //currentorder.toString()
+            success: function (returndata) {
+                var result = JSON.parse(returndata);
+                if (result.response.giftcardlist.length > 0) {
+
+                    ShowGiftCodeL(result.response.giftcardlist);
+                    layer.closeAll();
+                }
+
+            },
+            error: function (x, e) {
+                layer.alert("消息发送异常，请重试。");
+            },
+            complete: function (x) {
+                //alert("complete");
+            }
+        });
+    }
+    function ShowGiftCodeL(_Logs) {
+        $("#tableSingle2").html("");
+        $("#tableSingle2").kendoGrid({
+            toolbar: ["excel"],
+            excel: {
+                fileName: "礼品码清单.xlsx",
+            },
+            dataSource: {
+                data: _Logs,
+                schema: {
+                    model: {
+                        fields: {
+                            id: { type: "string" },
+                            giftcardcode: { type: "string" },
+                            PromoId: { type: "string" },
+                            generatedate: { type: "string" },
+                            isused: { type: "string" },
+                            isusedt: { type: "string" },
+                            useddate: { type: "string" },
+                            forcompany: { type: "string" },
+                            expireddate: { type: "string" },
+                            usedmobile: { type: "string" },
+                            usedname: { type: "string" },
+
+                            amount: { type: "string" },
+                            enabled: { type: "string" },
+                            enabledt: { type: "string" },
+                            deliveryaddr: { type: "string" },
+                            jumpurl: { type: "string" },
+                            usedopenid: { type: "string" }
+                            //deliveryid: { type: "deliveryid" },
+                            //deliverystatus: { type: "deliverystatus" }
+                        }
+                    }
+                },
+                pageSize: 20
+            },
+            //height: 1000,
+            scrollable: false,
+            sortable: true,
+            groupable: false,
+            filterable: {
+                //extra: true,
+                operators: {
+                    string: {
+                        contains: "Contains",
+                        startswith: "Starts with",
+                        endswith: "End with"
+                    }
+                }
+            },
+            columnMenu: false,
+            pageable: true,
+            pageable: {
+                input: true,
+                numeric: false,
+                buttonCount: 10,
+                pageSizes: true
+            },
+            columns: [
+                {
+                    width: "1%",
+                    template: function (e) {
+
+                        if (e.isused == "0") {
+                            return "<input type='checkbox' id='checkbox'" + e.id + " data-value='" + e.id + " ' />";
+                        }
+                        return "";
+                    }
+                    ,
+                    headerTemplate: "<input type='checkbox' id='checkboxALL' onclick='checkAll(this)'/>"
+                },
+                //{ field: "id", width: "3%", title: "id", encoded: false },
+                { field: "giftcardcode", width: "3%", title: "礼品码", encoded: false },
+                //{ field: "PromoId", width: "5%", title: "PromoId", encoded: false },
+                { field: "generatedate", width: "5%", title: "生成日期", encoded: false },
+                { field: "isusedt", width: "5%", title: "是否使用", encoded: false },
+                { field: "enabledt", width: "5%", title: "是否激活", encoded: false },
+                { field: "useddate", width: "5%", title: "使用日期", encoded: false },
+                //{ field: "forcompany", width: "5%", title: "forcompany", encoded: false },
+                //{ field: "expireddate", width: "5%", title: "expireddate", encoded: false, format: "{0:yyyy/MM/dd}" },
+                { field: "usedmobile", width: "5%", title: "手机号", encoded: false },
+                { field: "usedname", width: "5%", title: "用户", encoded: false },
+                //{ field: "usedopenid", width: "5%", title: "usedopenid", encoded: false }
+            ]
+        });
+    }
+
+    function checkAll(input) {
+        var checkboxs = $("#tableSingle2").find("input[type='checkbox']");
+        checkboxs.each(function () {
+            if (this.checked != input.checked) {
+                this.checked = input.checked;
+            }
+        })
+    }
+
+    function cardactive() {
+        var checkboxs = $("#tableSingle2").find("input[type='checkbox']");
+        var activeids = "";
+        checkboxs.each(function () {
+            if (this.checked && $(this).attr("data-value") != undefined && $(this).attr("data-value") != "") {
+                if (activeids == "") {
+                    activeids = $(this).attr("data-value");
+                }
+                activeids += "," + $(this).attr("data-value");
+            }
+        })
+
+        if (activeids == "") {
+            layer.alert("请选择礼品码", { icon: 5 });
+            return;
+        }
+        $.ajax({
+            type: "POST",
+            async: false,
+            url: "@Url.Action("cardactive")",
+            contentType: "application/x-www-form-urlencoded", //必须有
+            data: { ids: activeids },
+            //currentorder.toString()
+            success: function (returndata) {
+                var result = JSON.parse(returndata);
+                if (result.response.issuccess == 1) {
+                    ShowGiftCode(currentid);
+                    layer.alert("激活成功", { icon: 6 });
+
+                }
+                else {
+
+                }
+
+            },
+            error: function (x, e) {
+                layer.alert("消息发送异常，请重试。");
+            },
+            complete: function (x) {
+                //alert("complete");
+            }
+        });
+    }
+    function cardinactive() {
+        var checkboxs = $("#tableSingle2").find("input[type='checkbox']");
+        var activeids = "";
+        checkboxs.each(function () {
+            if (this.checked && $(this).attr("data-value") != undefined && $(this).attr("data-value") != "") {
+                if (activeids == "") {
+                    activeids = $(this).attr("data-value");
+                }
+                activeids += "," + $(this).attr("data-value");
+            }
+        })
+
+        if (activeids == "") {
+            layer.alert("请选择礼品码", { icon: 5 });
+            return;
+        }
+        $.ajax({
+            type: "POST",
+            async: false,
+            url: "@Url.Action("cardinactive")",
+            contentType: "application/x-www-form-urlencoded", //必须有
+            data: { ids: activeids },
+            //currentorder.toString()
+            success: function (returndata) {
+                var result = JSON.parse(returndata);
+                if (result.response.issuccess == 1) {
+                    ShowGiftCode(currentid);
+                    layer.alert("禁用成功", { icon: 6 });
+
+                }
+                else {
+
+                }
+
+            },
+            error: function (x, e) {
+                layer.alert("消息发送异常，请重试。");
+            },
+            complete: function (x) {
+                //alert("complete");
+            }
+        });
+    }
+</script>
+<div class="container">
+    <div class="row">
+        <a class="btn btn-danger btn-small" href="#">创建礼品码</a>
+    </div>
+    <div class="row">
+        有赞优惠码列表：
+        <div id="tableSingle"></div>
+    </div>
+    <div class="row">
+        <a class="btn btn-danger btn-small" onclick="cardactive()" href="#">激活</a>  <a class="btn btn-danger btn-small" onclick="cardinactive()" href="#">禁用</a>
+    </div>
+    <div class="row">
+        礼品码库：
+        <div id="tableSingle2"></div>
+    </div>
+</div>
+    
+    
+

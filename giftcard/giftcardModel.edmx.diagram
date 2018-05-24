@@ -10,6 +10,7 @@
         <EntityTypeShape EntityType="giftcardModel.t_user" Width="1.5" PointX="6.5" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="giftcardModel.t_user2app" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="giftcardModel.giftcard" Width="1.5" PointX="2.75" PointY="2.875" />
+        <EntityTypeShape EntityType="giftcardModel.v_giftcard" Width="1.5" PointX="4.75" PointY="2.625" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
