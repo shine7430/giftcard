@@ -26,11 +26,11 @@ namespace AllTrustUs.Data
         }
     
         public virtual DbSet<giftcard> giftcard { get; set; }
-        public virtual DbSet<t_apps> t_apps { get; set; }
         public virtual DbSet<t_company> t_company { get; set; }
         public virtual DbSet<t_user> t_user { get; set; }
         public virtual DbSet<t_user2app> t_user2app { get; set; }
         public virtual DbSet<v_giftcard> v_giftcard { get; set; }
         public virtual DbSet<v_userapps> v_userapps { get; set; }
+        public virtual DbSet<t_apps> t_apps { get; set; }
     }
 }

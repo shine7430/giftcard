@@ -6,12 +6,12 @@
     <edmx:Diagrams>
       <Diagram DiagramId="c5278b9317364a4199af4363741a62a3" Name="Diagram1">
         <EntityTypeShape EntityType="giftcardModel.giftcard" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="giftcardModel.t_apps" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="giftcardModel.t_company" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="giftcardModel.t_user" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="giftcardModel.t_user2app" Width="1.5" PointX="4.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="giftcardModel.v_giftcard" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="giftcardModel.v_userapps" Width="1.5" PointX="4.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="giftcardModel.t_apps" Width="1.5" PointX="2.875" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

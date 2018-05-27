@@ -34,6 +34,11 @@
     .layui-layer{
         top:100px;
     }
+    .layui-layer-content label {
+        float: left;
+        width: 100px;
+        line-height: 30px;
+    }
 </style>
 <script>
     $(function () {
@@ -112,7 +117,7 @@
                         _html += '</div>';
                         _html += '<div class="panel-body"><a href="/GiftCard/CardGenerate/' + e.appcode + '">';
                         _html += '<p>有效期至：' + (new Date(e.expireddate)).Format("yyyy-MM-dd hh:mm") + '</p>';
-                        _html += '<p>kdt_id:' + e.kdt_id + '</p>';
+                        _html += '<p>授权店铺id：' + e.kdt_id + '</p>';
                         _html += '</a></div>';
                         _html += '</div>';
                         _html += '</div>';
@@ -234,23 +239,23 @@
 <div style="position: absolute;width: 85%;">
     <div id="editzoom" style="display:none;z-index: 19891015;
     position: relative;
-    width: 60px;
+    width: 400px;
     margin: 0 auto;" class=" layui-layer layui-layer-dialog layer-anim">
         <div class="layui-layer-title" style="cursor: move;" move="ok">店铺编辑</div>
         <div id="editapp" class="layui-layer-content">
             <div class="row">
                 <div class="form-group">
-                    <input class="form-control" placeholder="店铺名称" type="text" name="txtAppName" id="txtAppName" />
+                    <label>店铺名称:</label><input class="form-control" placeholder="店铺名称" type="text" name="txtAppName" id="txtAppName" />
                 </div>
                 <div class="form-group">
-                    <input class="form-control" placeholder="kdt_id" type="text" name="txtkdt_id" id="txtkdt_id" />
-                </div>
+                    <label>授权店铺id:</label><input class="form-control" placeholder="kdt_id" type="text" name="txtkdt_id" id="txtkdt_id" />
+</div>
                 <div class="form-group">
-                    <input class="form-control" placeholder="client_id" type="text" name="txtclient_id" id="txtclient_id" />
-                </div>
+                    <label>client_id:</label><input class="form-control" placeholder="client_id" type="text" name="txtclient_id" id="txtclient_id" />
+</div>
                 <div class="form-group">
-                    <input class="form-control" placeholder="client_secret" type="text" name="txtclient_secret" id="txtclient_secret" />
-                </div>
+                    <label>client_secret:</label><input class="form-control" placeholder="client_secret" type="text" name="txtclient_secret" id="txtclient_secret" />
+</div>
                 <span id="errormsg" style="color:red"></span>
             </div>
         </div>

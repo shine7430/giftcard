@@ -22,6 +22,7 @@
         //ShowGiftCode();
     })
 
+    var _youzhan_cards = [];
     function ShowSingle() {
         var _Logs = [];
         var _data = JSON.parse($("#hidresult").val()).response.groups;
@@ -35,12 +36,13 @@
                 e.is_invalid = "过期";
             }
         })
+        _youzhan_cards = _data;
         ShowGiftCodeList(_data);
     }
 
     function ShowGiftCodeList(_Logs) {
 
-        
+
         $("#tableSingle").kendoGrid({
             //toolbar: ["excel"],
             excel: {
@@ -130,7 +132,7 @@
                         var _is_invalid = e.is_invalid;
                         var _html = "<a href='#' onclick='ShowGiftCode(" + e.id + ")' id='btnview" + e.id + "'  data-value='" + e.id + "'>查看码库</a>";
                         if (_is_invalid == "有效") {
-                            _html += " <a  href='#' id='btn" + e.id + "' data-value='" + e.id + "'>生成礼品码</a>";
+                            _html += " <a  href='#'  onclick='GenerateGiftCode(" + e.id + ")' id='btn" + e.id + "' data-value='" + e.id + "'>生成礼品码</a>";
                         }
                         return _html
 
@@ -144,10 +146,12 @@
 
     }
     var currentid = "";
+
     function ShowGiftCode(id) {
         var _Logs = [];
         currentid = id
         layer.load(2);
+        $("#tableSingle2").html("");
         $.ajax({
             type: "POST",
             async: false,
@@ -160,9 +164,9 @@
                 if (result.response.giftcardlist.length > 0) {
 
                     ShowGiftCodeL(result.response.giftcardlist);
-                    layer.closeAll();
-                }
 
+                }
+                layer.closeAll();
             },
             error: function (x, e) {
                 layer.alert("消息发送异常，请重试。");
@@ -173,7 +177,7 @@
         });
     }
     function ShowGiftCodeL(_Logs) {
-        $("#tableSingle2").html("");
+
         $("#tableSingle2").kendoGrid({
             toolbar: ["excel"],
             excel: {
@@ -254,10 +258,80 @@
                 //{ field: "forcompany", width: "5%", title: "forcompany", encoded: false },
                 //{ field: "expireddate", width: "5%", title: "expireddate", encoded: false, format: "{0:yyyy/MM/dd}" },
                 { field: "usedmobile", width: "5%", title: "手机号", encoded: false },
-                { field: "usedname", width: "5%", title: "用户", encoded: false },
+                { field: "usedname", width: "5%", title: "领用人", encoded: false },
                 //{ field: "usedopenid", width: "5%", title: "usedopenid", encoded: false }
             ]
         });
+    }
+
+    function GenerateGiftCode(id) {
+        var _youzhan_card1 = _youzhan_cards.find(c => c.id == id);
+        //title: { type: "string" },
+        //id: { type: "string" },
+        //valid_start_time: { type: "string" },
+        //valid_end_time: { type: "string" },
+        //is_limit: { type: "string" },
+        //total_qty: { type: "string" },
+        //stock_qty: { type: "string" },
+        //total_take: { type: "string" },
+        //denominations: { type: "string" },
+        is_invalid: { type: "string" }        layer.msg('总数：【' + _youzhan_card1.total_qty +'】<br/>'
+            + '已领取：【' + _youzhan_card1.total_take + '】<br/>'
+            + '库存数：【' + _youzhan_card1.stock_qty + '】<br/>'
+            + '生成卡卷数量为【' + _youzhan_card1.stock_qty+'】，确认是否生成？', {
+                shade: 0.3,
+                time: 0 //不自动关闭
+                ,icon:3
+                , btn: ['确认', '取消']
+                , yes: function (index) {
+
+                    layer.msg('生成中，请稍后...', {
+                        icon: 16
+                        , shade: 0.3
+                    });
+                   $.ajax({
+                        type: "POST",
+                        async: false,
+                        url: "@Url.Action("GenerateGiftCode")",
+                        contentType: "application/x-www-form-urlencoded", //必须有
+                       data: {
+                           count: _youzhan_card1.stock_qty,
+                           amount: _youzhan_card1.denominations,
+                           expireddate: _youzhan_card1.valid_end_time,
+                           forcompany: _youzhan_card1.title,
+                           PromoId: _youzhan_card1.id,
+                           jumpurl: '@ViewBag.apphormurl',
+                       },
+                        //currentorder.toString()
+                        success: function (returndata) {
+                            var result = JSON.parse(returndata);
+                            if (result.response.issuccess == 1) {
+
+                                layer.alert("生成成功", { icon: 6 });
+                                ShowGiftCode(id)
+
+                            }
+                            else {
+
+                            }
+                            //layer.closeAll();
+                        },
+                        error: function (x, e) {
+                            layer.alert("消息发送异常，请重试。");
+                        },
+                        complete: function (x) {
+                            //alert("complete");
+                        }
+                    });
+
+
+                }
+                , btn2: function () {
+                    layer.closeAll();
+                }
+
+            });
+
     }
 
     function checkAll(input) {
@@ -372,6 +446,6 @@
         <div id="tableSingle2"></div>
     </div>
 </div>
-    
-    
+
+
 

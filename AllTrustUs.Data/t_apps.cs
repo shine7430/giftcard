@@ -22,5 +22,6 @@ namespace AllTrustUs.Data
         public Nullable<System.DateTime> expireddate { get; set; }
         public string status { get; set; }
         public string appcode { get; set; }
+        public string homeurl { get; set; }
     }
 }
