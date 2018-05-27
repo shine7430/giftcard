@@ -89,7 +89,12 @@
                 }
                 else
                 {
-                    @Html.ActionLink("登录", "Index", "Login")
+                    <span>
+                        @Html.ActionLink("登录", "Index", "Login")
+                    </span>
+                    <span>
+                        @Html.ActionLink("注册", "Register", "Login")
+                    </span>
                 }
             </div>
         </div>
@@ -99,7 +104,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - 有赞礼品码管理平台</p>
+            <p>&copy; @DateTime.Now.Year - 有赞礼品码管理平台 上海醒信信息科技有限公司</p>
         </footer>
     </div>
 
