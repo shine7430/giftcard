@@ -20,11 +20,13 @@ namespace AllTrustUs.giftcard
                         "~/Scripts/modernizr-*"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                      "~/Scripts/bootstrap.js"));
+                      "~/Scripts/bootstrap.js",
+                      "~/Scripts/Common.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+                      "~/Content/site.css",
+                       "~/Content/style.css"));
 
             bundles.Add(new StyleBundle("~/Content/kendoUI/css").Include(
                       "~/Content/JQueryControl/kendoUI/styles/kendo.common.min.css",
@@ -38,6 +40,9 @@ namespace AllTrustUs.giftcard
                       "~/Content/layer/layer.js"));
             bundles.Add(new StyleBundle("~/Content/layer/css").Include(
                       "~/Content/layer/skin/layer.css"));
+
+            bundles.Add(new ScriptBundle("~/Content/jquery-validation").Include(
+                      "~/Content/jquery-validation/jquery.validate.min.js"));
         }
     }
 }

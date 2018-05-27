@@ -4,3 +4,7 @@
 
 /giftcard/bin
 /.vs
+/AllTrustUs.Data/bin/Debug
+/AllTrustUs.Data/obj/Debug
+/ConsoleTest/bin/Debug
+/ConsoleTest/obj/Debug

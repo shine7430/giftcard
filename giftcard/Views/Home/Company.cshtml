@@ -1,8 +1,278 @@
 ﻿
 @{
-    ViewBag.Title = "Company";
+    ViewBag.Title = "店铺信息";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@Styles.Render("~/Content/layer/css")
 
-<h2>Company</h2>
+@Scripts.Render("~/Content/layer")
+<style>
+    .panel-body {
+        height: 100px;
+    }
 
+    .appnew {
+        width: 30px;
+        margin: 0 auto;
+        line-height: 60px;
+        font-size: 50px;
+        color: silver;
+    }
+
+    .panel-body:hover {
+        cursor: pointer;
+    }
+
+    .header-controler {
+        float: right
+    }
+    .panel-body a:hover,
+    .panel-body a:checked {
+        text-decoration: none;
+        color: #337ab7;
+    }
+    .layui-layer{
+        top:100px;
+    }
+</style>
+<script>
+    $(function () {
+        var userapps;
+        loadapp();
+        $(".appnew").parent().on("click", function () {
+            $("#txtAppName").val("");
+            $("#txtkdt_id").val("")
+            $("#txtclient_id").val("");
+            $("#txtclient_secret").val("");
+            $('#editzoom').show();
+            $('#layershade').show();
+            //return;
+            $("#btnSave").on("click", function () {
+
+                var _msg = "";
+                    if ($("#txtAppName").val() == "") {
+                        _msg += "*请填写店铺名称！<br/>";
+                    }
+                    if ($("#txtkdt_id").val() == "") {
+                        _msg += "*请填写kdt_id！<br/>";
+                    }
+                    if ($("#txtclient_id").val() == "") {
+                        _msg += "*请填写client_id！<br/>";
+                    }
+                    if ($("#txtclient_secret").val() == "") {
+                        _msg += "*请填写client_secret！<br/>";
+                    }
+                    if (_msg != "") {
+                        $("#errormsg").html(_msg);
+                        return;
+                    }
+                    $.ajax({
+                        type: "POST",
+                        async: false,
+                        url: "@Url.Action("doAppCreate")",
+                        contentType: "application/x-www-form-urlencoded", //必须有
+                        data: { AppName: $(".layui-layer #txtAppName").val(), kdt_id: $(".layui-layer #txtkdt_id").val(), client_id: $(".layui-layer #txtclient_id").val(), client_secret: $(".layui-layer #txtclient_secret").val()},
+                        //currentorder.toString()
+                        success: function (returndata) {
+                            var result = JSON.parse(returndata);
+                            window.location.reload();
+                            //window.location.href = "/Home/Company";
+
+                        },
+                        error: function (x, e) {
+                            layer.alert("消息发送异常，请重试。");
+                        },
+                        complete: function (x) {
+                            //alert("complete");
+                        }
+                    });
+                    layer.closeAll();
+            })
+            
+        })
+
+
+        function loadapp() {
+            $.ajax({
+                type: "POST",
+                async: false,
+                url: "@Url.Action("doAppLoad")",
+                contentType: "application/x-www-form-urlencoded", //必须有
+                data: { userid: "@ViewBag.userid" },
+                //currentorder.toString()
+                success: function (result) {
+                    userapps = JSON.parse(result).response.userapplist;
+                    $.each(userapps, function (i, e) {
+                        var _html = '<div class="col-lg-4">';
+                        _html += '<div class="panel panel-danger">';
+                        _html += '<div class="panel-heading">';
+                        _html += '<span class="apptitle">' + e.appname + '</span><div class="header-controler">';
+                        _html += '<a href="#" class="appupdate" data-id="' + e.id + '")">修改</a>  <a href="#" class="appdelete" data-id="' + e.id + '">删除</a>';
+                        _html += '</div>';
+                        _html += '</div>';
+                        _html += '<div class="panel-body"><a href="/GiftCard/CardGenerate/' + e.appcode + '">';
+                        _html += '<p>有效期至：' + (new Date(e.expireddate)).Format("yyyy-MM-dd hh:mm") + '</p>';
+                        _html += '<p>kdt_id:' + e.kdt_id + '</p>';
+                        _html += '</a></div>';
+                        _html += '</div>';
+                        _html += '</div>';
+                        $("#approw").append(_html);
+                    });
+
+                    $(".appupdate").on("click", function () {
+                        appupdate($(this).attr("data-id"));
+                    })
+
+                    $(".appdelete").on("click", function () {
+                        appdelete($(this).attr("data-id"));
+                    })
+                },
+                error: function (x, e) {
+                    layer.alert("消息发送异常，请重试。");
+                },
+                complete: function (x) {
+                    //alert("complete");
+                }
+            });
+        }
+
+        function appupdate(id) {
+            var app = userapps.find(s => s.id == id);
+            $("#txtAppName").val(app.appname);
+            $("#txtkdt_id").val(app.kdt_id)
+            $("#txtclient_id").val(app.client_id);
+            $("#txtclient_secret").val(app.client_secret);
+            $('#editzoom').show();
+            $('#layershade').show();
+            //return;
+            $("#btnSave").on("click", function () {
+                var _msg = "";
+                    if ($("#txtAppName").val() == "") {
+                        _msg += "*请填写店铺名称！<br/>";
+                    }
+                    if ($("#txtkdt_id").val() == "") {
+                        _msg += "*请填写kdt_id！<br/>";
+                    }
+                    if ($("#txtclient_id").val() == "") {
+                        _msg += "*请填写client_id！<br/>";
+                    }
+                    if ($("#txtclient_secret").val() == "") {
+                        _msg += "*请填写client_secret！<br/>";
+                    }
+                    if (_msg != "") {
+                        $("#errormsg").html(_msg);
+                        return;
+                    }
+                    $.ajax({
+                        type: "POST",
+                        async: false,
+                        url: "@Url.Action("doAppUpdate")",
+                        contentType: "application/x-www-form-urlencoded", //必须有
+                        data: { id:id,AppName: $(".layui-layer #txtAppName").val(), kdt_id: $(".layui-layer #txtkdt_id").val(), client_id: $(".layui-layer #txtclient_id").val(), client_secret: $(".layui-layer #txtclient_secret").val()},
+                        //currentorder.toString()
+                        success: function (returndata) {
+                            var result = JSON.parse(returndata);
+                            window.location.reload();
+
+                        },
+                        error: function (x, e) {
+                            layer.alert("消息发送异常，请重试。");
+                        },
+                        complete: function (x) {
+                            //alert("complete");
+                        }
+                    });
+                layer.closeAll();
+
+            })
+        }
+
+        function appdelete(id) {
+
+            layer.msg('你确认删除？', {
+                    shade: 0.3,
+                time: 0, //不自动关闭,
+                icon: 2
+                    , btn: ['确认', '取消']
+                    , yes: function (index) {
+
+                        $.ajax({
+                            type: "POST",
+                            async: false,
+                            url: "@Url.Action("doAppDelete")",
+                            contentType: "application/x-www-form-urlencoded", //必须有
+                            data: { id:id},
+                            //currentorder.toString()
+                            success: function (returndata) {
+                                window.location.reload();
+                                layer.closeAll();
+                            },
+                            error: function (x, e) {
+                                layer.alert("消息发送异常，请重试。");
+                            },
+                            complete: function (x) {
+                                //alert("complete");
+                            }
+                        });
+                        
+                    }
+                    , btn2: function () {
+                        layer.closeAll();
+                    }
+
+                });
+
+        }
+
+        $("#btnClose").on("click", function () {
+            $('#editzoom').hide();
+            $('#layershade').hide();
+        })
+    })
+
+</script>
+<div style="position: absolute;width: 85%;">
+    <div id="editzoom" style="display:none;z-index: 19891015;
+    position: relative;
+    width: 60px;
+    margin: 0 auto;" class=" layui-layer layui-layer-dialog layer-anim">
+        <div class="layui-layer-title" style="cursor: move;" move="ok">店铺编辑</div>
+        <div id="editapp" class="layui-layer-content">
+            <div class="row">
+                <div class="form-group">
+                    <input class="form-control" placeholder="店铺名称" type="text" name="txtAppName" id="txtAppName" />
+                </div>
+                <div class="form-group">
+                    <input class="form-control" placeholder="kdt_id" type="text" name="txtkdt_id" id="txtkdt_id" />
+                </div>
+                <div class="form-group">
+                    <input class="form-control" placeholder="client_id" type="text" name="txtclient_id" id="txtclient_id" />
+                </div>
+                <div class="form-group">
+                    <input class="form-control" placeholder="client_secret" type="text" name="txtclient_secret" id="txtclient_secret" />
+                </div>
+                <span id="errormsg" style="color:red"></span>
+            </div>
+        </div>
+        <span class="layui-layer-setwin"><a class="layui-layer-ico layui-layer-close layui-layer-close1" id="btnClose"></a></span>
+        <div class="layui-layer-btn"><a class="layui-layer-btn0" id="btnSave">保存</a></div>
+    </div>
+</div>
+<div id="approw" class="row">
+
+    <div class="col-lg-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <span class="apptitle">
+                    新增
+                </span>
+            </div>
+            <div class="panel-body">
+                <div class="appnew">+</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="layershade" class="layui-layer-shade"  times="1" style="display:none; z-index:19891014; background-color:#000; opacity:0.3; filter:alpha(opacity=30);"></div>

@@ -87,7 +87,6 @@ D:\Spreadtrum\Source\Repos\giftcard\giftcard\bin\EntityFramework.xml
 D:\Spreadtrum\Source\Repos\giftcard\giftcard\bin\EntityFramework.SqlServer.xml
 D:\Spreadtrum\Source\Repos\giftcard\giftcard\bin\Google.Protobuf.xml
 D:\Spreadtrum\Source\Repos\giftcard\giftcard\bin\MySql.Data.xml
-D:\Spreadtrum\Source\Repos\giftcard\giftcard\bin\MySql.Data.Entity.EF6.xml
 D:\Spreadtrum\Source\Repos\giftcard\giftcard\bin\System.Web.Helpers.xml
 D:\Spreadtrum\Source\Repos\giftcard\giftcard\bin\System.Web.Mvc.xml
 D:\Spreadtrum\Source\Repos\giftcard\giftcard\bin\System.Web.Optimization.xml
@@ -120,3 +119,9 @@ D:\Spreadtrum\Source\Repos\giftcard\giftcard\obj\Debug\giftcard.csprojAssemblyRe
 D:\Spreadtrum\Source\Repos\giftcard\giftcard\obj\Debug\giftcard.csproj.CopyComplete
 D:\Spreadtrum\Source\Repos\giftcard\giftcard\obj\Debug\AllTrustUs.giftcard.dll
 D:\Spreadtrum\Source\Repos\giftcard\giftcard\obj\Debug\AllTrustUs.giftcard.pdb
+D:\Spreadtrum\Source\Repos\giftcard\giftcard\bin\AllTrustUs.Data.dll
+D:\Spreadtrum\Source\Repos\giftcard\giftcard\bin\AllTrustUs.Data.pdb
+D:\Spreadtrum\Source\Repos\giftcard\giftcard\bin\AllTrustUs.Data.dll.config
+D:\Spreadtrum\Source\Repos\giftcard\giftcard\bin\zh-Hans\EntityFramework.resources.dll
+D:\Spreadtrum\Source\Repos\giftcard\giftcard\bin\zh-Hans\EntityFramework.SqlServer.resources.dll
+D:\Spreadtrum\Source\Repos\giftcard\giftcard\bin\MySql.Data.Entity.EF6.xml

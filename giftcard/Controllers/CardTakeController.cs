@@ -1,4 +1,5 @@
-﻿using AllTrustUs.giftcard.Utility;
+﻿using AllTrustUs.Data;
+using AllTrustUs.giftcard.Utility;
 using AllTrustUs.WXPayAPILib;
 using LitJson;
 using System;
@@ -137,8 +138,9 @@ namespace AllTrustUs.giftcard.Controllers
             Dictionary<string, object> dict;
 
             giftcardEntities db = new giftcardEntities();
+            
             object[] obj = new object[1];
-            var cards = db.Database.SqlQuery<giftcard>(getsql, obj).ToList();
+            var cards = db.Database.SqlQuery<AllTrustUs.Data.giftcard>(getsql, obj).ToList();
 
             if (cards.Count > 0)
             {

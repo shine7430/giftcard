@@ -11,6 +11,11 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+    @using AllTrustUs.giftcard.Controllers;
+    @{
+        var loginUser = BaseController.CurrentUser;
+        var islogin = BaseController.islogin;
+    }
     <style>
         .navbar-inverse .navbar-nav > li > a,
         .navbar-inverse .navbar-brand {
@@ -26,10 +31,31 @@
             background-color: red !important;
             border-color: red !important;
         }
+
         .header-right a {
-            color: #515967;
+            color: #555;
         }
     </style>
+    <script>
+        function logout() {
+            $.ajax({
+                type: "POST",
+                async: false,
+                url: "/Login/logout",
+                contentType: "application/x-www-form-urlencoded", //必须有
+                //currentorder.toString()
+                success: function (returndata) {
+                    window.location.href = "/Home/index";
+                },
+                error: function (x, e) {
+                    layer.alert("消息发送异常，请重试。");
+                },
+                complete: function (x) {
+                    //alert("complete");
+                }
+            })
+        }
+    </script>
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -45,21 +71,35 @@
             <div class="navbar-collapse collapse" style="float:left">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("主页", "Index", "Home")</li>
-                    <li>@Html.ActionLink("公司店铺信息", "About", "Home")</li>
+                    <li>
+                        @if (islogin)
+                        {
+                            @Html.ActionLink("我的店铺", "Company", "Home");
+                        }
+                    </li>
                     <li>@Html.ActionLink("关于", "About", "Home")</li>
                     <li>@Html.ActionLink("联系方式", "Contact", "Home")</li>
                 </ul>
             </div>
             <div style="float:right;line-height: 50px;color:white" class="header-right">
-                <span>上海醒信信息科技有限公司 </span> <a href="#">退出</a>
+
+                @if (islogin)
+                {
+                    <span>@loginUser.CompanyName</span><a href="#" onclick="logout()">退出</a>
+                }
+                else
+                {
+                    @Html.ActionLink("登录", "Index", "Login")
+                }
             </div>
         </div>
     </div>
+
     <div class="container body-content">
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - 礼品劵管理平台</p>
+            <p>&copy; @DateTime.Now.Year - 有赞礼品码管理平台</p>
         </footer>
     </div>
 

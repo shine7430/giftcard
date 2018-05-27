@@ -21,5 +21,12 @@ namespace AllTrustUs.giftcard
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
+
+        protected void Application_Error(Object sender, EventArgs e)
+        {
+            Exception lastError = Server.GetLastError();
+            //System.Web.HttpContext.Current.Session["SystemError"] = lastError.Message;
+            //System.Web.HttpContext.Current.Response.Redirect("/Error");
+        }
     }
 }

@@ -4,12 +4,14 @@ using System;
 using AllTrustUs.WXPayAPILib;
 using AllTrustUs.giftcard.Utility;
 using System.Collections.Generic;
+using AllTrustUs.Data;
+using System.Security.Cryptography;
 
 namespace AllTrustUs.giftcard.Controllers
 {
     public class BaseController : Controller
     {
-        public t_user CurrentUser
+        public static t_user CurrentUser
         {
             get
             {
@@ -20,6 +22,7 @@ namespace AllTrustUs.giftcard.Controllers
                 }
                 else
                 {
+                    //context.Response.Redirect("/Home", true);
                     return null;
                 }
             }
@@ -31,6 +34,18 @@ namespace AllTrustUs.giftcard.Controllers
             }
         }
 
+        public static bool islogin
+        {
+            get
+            {
+                var context = System.Web.HttpContext.Current;
+                if (context.Session["User"] != null)
+                {
+                    return true;
+                }
+                return false;
+            }
+        }
         public WeXUser CurrentWeXUser
         {
             get
@@ -53,6 +68,7 @@ namespace AllTrustUs.giftcard.Controllers
             }
         }
 
+
         public string getToken(string appcode)
         {
             string _kdt_id = "";
@@ -72,6 +88,10 @@ namespace AllTrustUs.giftcard.Controllers
             {
                 string url = string.Format("https://open.youzan.com/oauth/token?client_id="+ _client_id + "&client_secret="+ _client_secret + "&grant_type=silent&kdt_id="+ _kdt_id);
                 AccessToken curToken = AccessTokenRequest(url);
+                if (curToken.access_token == null)
+                {
+                    throw new Exception("token 获取异常！");
+                }
                 var ms = Convert.ToDouble(curToken.expires_in) - 1000;
                 System.Web.HttpContext.Current.Cache.Insert("AccessToken_" + _kdt_id, curToken.access_token, null,
                                                  DateTime.Now.Add(System.TimeSpan.FromSeconds(ms)),
@@ -251,6 +271,35 @@ namespace AllTrustUs.giftcard.Controllers
 
             }
 
+        }
+
+        public static string MD5Encrypt(string strText,int i = 16)
+        {
+            //获取要加密的字段，并转化为Byte[]数组
+            byte[] data = System.Text.Encoding.Unicode.GetBytes(strText.ToCharArray());
+            //建立加密服务
+            System.Security.Cryptography.MD5 md5 = new System.Security.Cryptography.MD5CryptoServiceProvider();
+            //加密Byte[]数组
+            byte[] result = md5.ComputeHash(data);
+            //将加密后的数组转化为字段
+            if (i == 16 && strText != string.Empty)
+            {
+                return System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile(strText, "MD5").ToLower().Substring(8, 16);
+            }
+            else if (i == 32 && strText != string.Empty)
+            {
+                return System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile(strText, "MD5").ToLower();
+            }
+            else
+            {
+                switch (i)
+                {
+                    case 16: return "000000000000000";
+                    case 32: return "000000000000000000000000000000";
+                    default: return "请确保调用函数时第二个参数为16或32";
+                }
+
+            }
         }
     }
 }

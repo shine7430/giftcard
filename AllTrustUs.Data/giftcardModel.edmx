@@ -1,0 +1,395 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="giftcardModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.7" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="giftcard">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="giftcardcode" Type="varchar" MaxLength="200" />
+          <Property Name="PromoId" Type="int" />
+          <Property Name="generatedate" Type="varchar" MaxLength="200" />
+          <Property Name="isused" Type="varchar" MaxLength="5" />
+          <Property Name="useddate" Type="varchar" MaxLength="200" />
+          <Property Name="forcompany" Type="varchar" MaxLength="200" />
+          <Property Name="expireddate" Type="varchar" MaxLength="200" />
+          <Property Name="usedopenid" Type="varchar" MaxLength="200" />
+          <Property Name="usedmobile" Type="varchar" MaxLength="200" />
+          <Property Name="usedname" Type="varchar" MaxLength="200" />
+          <Property Name="amount" Type="varchar" MaxLength="200" />
+          <Property Name="enabled" Type="varchar" MaxLength="200" />
+          <Property Name="jumpurl" Type="varchar" MaxLength="2000" />
+        </EntityType>
+        <EntityType Name="t_apps">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="client_id" Type="varchar" MaxLength="50" />
+          <Property Name="client_secret" Type="varchar" MaxLength="200" />
+          <Property Name="kdt_id" Type="varchar" MaxLength="50" />
+          <Property Name="appname" Type="varchar" MaxLength="50" />
+          <Property Name="expireddate" Type="datetime" Precision="0" />
+          <Property Name="status" Type="varchar" MaxLength="50" />
+          <Property Name="appcode" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="t_company">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="companycode" Type="varchar" MaxLength="50" />
+          <Property Name="companyname" Type="varchar" MaxLength="200" />
+          <Property Name="registerdate" Type="datetime" Precision="0" />
+          <Property Name="logo" Type="varchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="t_user">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="username" Type="varchar" MaxLength="50" />
+          <Property Name="password" Type="varchar" MaxLength="50" />
+          <Property Name="mobile" Type="varchar" MaxLength="50" />
+          <Property Name="registerdate" Type="datetime" Precision="0" />
+          <Property Name="companyid" Type="int" />
+          <Property Name="CompanyName" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="t_user2app">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="userid" Type="int" />
+          <Property Name="appid" Type="int" />
+        </EntityType>
+        <!--生成过程中发现错误:
+警告 6002: 表/视图“def.giftcard.v_giftcard”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+        <EntityType Name="v_giftcard">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="isusedt" />
+            <PropertyRef Name="enabledt" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="giftcardcode" Type="varchar" MaxLength="200" />
+          <Property Name="PromoId" Type="int" />
+          <Property Name="generatedate" Type="varchar" MaxLength="200" />
+          <Property Name="isused" Type="varchar" MaxLength="5" />
+          <Property Name="useddate" Type="varchar" MaxLength="200" />
+          <Property Name="forcompany" Type="varchar" MaxLength="200" />
+          <Property Name="expireddate" Type="varchar" MaxLength="200" />
+          <Property Name="usedopenid" Type="varchar" MaxLength="200" />
+          <Property Name="usedmobile" Type="varchar" MaxLength="200" />
+          <Property Name="usedname" Type="varchar" MaxLength="200" />
+          <Property Name="amount" Type="varchar" MaxLength="200" />
+          <Property Name="enabled" Type="varchar" MaxLength="200" />
+          <Property Name="jumpurl" Type="varchar" MaxLength="2000" />
+          <Property Name="isusedt" Type="varchar" MaxLength="3" Nullable="false" />
+          <Property Name="enabledt" Type="varchar" MaxLength="3" Nullable="false" />
+        </EntityType>
+        <!--生成过程中发现错误:
+警告 6002: 表/视图“def.giftcard.v_userapps”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+        <EntityType Name="v_userapps">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="userid" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="userid" Type="int" Nullable="false" />
+          <Property Name="appcode" Type="varchar" MaxLength="50" />
+          <Property Name="appname" Type="varchar" MaxLength="50" />
+          <Property Name="client_id" Type="varchar" MaxLength="50" />
+          <Property Name="client_secret" Type="varchar" MaxLength="200" />
+          <Property Name="kdt_id" Type="varchar" MaxLength="50" />
+          <Property Name="expireddate" Type="datetime" Precision="0" />
+        </EntityType>
+        <EntityContainer Name="giftcardModelStoreContainer">
+          <EntitySet Name="giftcard" EntityType="Self.giftcard" Schema="giftcard" store:Type="Tables" />
+          <EntitySet Name="t_apps" EntityType="Self.t_apps" Schema="giftcard" store:Type="Tables" />
+          <EntitySet Name="t_company" EntityType="Self.t_company" Schema="giftcard" store:Type="Tables" />
+          <EntitySet Name="t_user" EntityType="Self.t_user" Schema="giftcard" store:Type="Tables" />
+          <EntitySet Name="t_user2app" EntityType="Self.t_user2app" Schema="giftcard" store:Type="Tables" />
+          <EntitySet Name="v_giftcard" EntityType="Self.v_giftcard" store:Type="Views" store:Schema="giftcard">
+            <DefiningQuery>SELECT
+`v_giftcard`.`id`, 
+`v_giftcard`.`giftcardcode`, 
+`v_giftcard`.`PromoId`, 
+`v_giftcard`.`generatedate`, 
+`v_giftcard`.`isused`, 
+`v_giftcard`.`useddate`, 
+`v_giftcard`.`forcompany`, 
+`v_giftcard`.`expireddate`, 
+`v_giftcard`.`usedopenid`, 
+`v_giftcard`.`usedmobile`, 
+`v_giftcard`.`usedname`, 
+`v_giftcard`.`amount`, 
+`v_giftcard`.`enabled`, 
+`v_giftcard`.`jumpurl`, 
+`v_giftcard`.`isusedt`, 
+`v_giftcard`.`enabledt`
+FROM `v_giftcard` AS `v_giftcard`</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="v_userapps" EntityType="Self.v_userapps" store:Type="Views" store:Schema="giftcard">
+            <DefiningQuery>SELECT
+`v_userapps`.`id`, 
+`v_userapps`.`userid`, 
+`v_userapps`.`appcode`, 
+`v_userapps`.`appname`, 
+`v_userapps`.`client_id`, 
+`v_userapps`.`client_secret`, 
+`v_userapps`.`kdt_id`, 
+`v_userapps`.`expireddate`
+FROM `v_userapps` AS `v_userapps`</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="giftcardModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="giftcard">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="giftcardcode" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="PromoId" Type="Int32" />
+          <Property Name="generatedate" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="isused" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="useddate" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="forcompany" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="expireddate" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="usedopenid" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="usedmobile" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="usedname" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="amount" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="enabled" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="jumpurl" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="t_apps">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="client_id" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="client_secret" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="kdt_id" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="appname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="expireddate" Type="DateTime" />
+          <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="appcode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="t_company">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="companycode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="companyname" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="registerdate" Type="DateTime" />
+          <Property Name="logo" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="t_user">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="mobile" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="registerdate" Type="DateTime" />
+          <Property Name="companyid" Type="Int32" />
+          <Property Name="CompanyName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="t_user2app">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userid" Type="Int32" />
+          <Property Name="appid" Type="Int32" />
+        </EntityType>
+        <EntityType Name="v_giftcard">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="isusedt" />
+            <PropertyRef Name="enabledt" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="giftcardcode" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="PromoId" Type="Int32" />
+          <Property Name="generatedate" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="isused" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="useddate" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="forcompany" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="expireddate" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="usedopenid" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="usedmobile" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="usedname" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="amount" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="enabled" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="jumpurl" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <Property Name="isusedt" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="enabledt" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="v_userapps">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="userid" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="userid" Type="Int32" Nullable="false" />
+          <Property Name="appcode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="appname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="client_id" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="client_secret" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="kdt_id" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="expireddate" Type="DateTime" />
+        </EntityType>
+        <EntityContainer Name="giftcardEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="giftcard" EntityType="Self.giftcard" />
+          <EntitySet Name="t_apps" EntityType="Self.t_apps" />
+          <EntitySet Name="t_company" EntityType="Self.t_company" />
+          <EntitySet Name="t_user" EntityType="Self.t_user" />
+          <EntitySet Name="t_user2app" EntityType="Self.t_user2app" />
+          <EntitySet Name="v_giftcard" EntityType="Self.v_giftcard" />
+          <EntitySet Name="v_userapps" EntityType="Self.v_userapps" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="giftcardModelStoreContainer" CdmEntityContainer="giftcardEntities">
+          <EntitySetMapping Name="giftcard">
+            <EntityTypeMapping TypeName="giftcardModel.giftcard">
+              <MappingFragment StoreEntitySet="giftcard">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="giftcardcode" ColumnName="giftcardcode" />
+                <ScalarProperty Name="PromoId" ColumnName="PromoId" />
+                <ScalarProperty Name="generatedate" ColumnName="generatedate" />
+                <ScalarProperty Name="isused" ColumnName="isused" />
+                <ScalarProperty Name="useddate" ColumnName="useddate" />
+                <ScalarProperty Name="forcompany" ColumnName="forcompany" />
+                <ScalarProperty Name="expireddate" ColumnName="expireddate" />
+                <ScalarProperty Name="usedopenid" ColumnName="usedopenid" />
+                <ScalarProperty Name="usedmobile" ColumnName="usedmobile" />
+                <ScalarProperty Name="usedname" ColumnName="usedname" />
+                <ScalarProperty Name="amount" ColumnName="amount" />
+                <ScalarProperty Name="enabled" ColumnName="enabled" />
+                <ScalarProperty Name="jumpurl" ColumnName="jumpurl" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="t_apps">
+            <EntityTypeMapping TypeName="giftcardModel.t_apps">
+              <MappingFragment StoreEntitySet="t_apps">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="client_id" ColumnName="client_id" />
+                <ScalarProperty Name="client_secret" ColumnName="client_secret" />
+                <ScalarProperty Name="kdt_id" ColumnName="kdt_id" />
+                <ScalarProperty Name="appname" ColumnName="appname" />
+                <ScalarProperty Name="expireddate" ColumnName="expireddate" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="appcode" ColumnName="appcode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="t_company">
+            <EntityTypeMapping TypeName="giftcardModel.t_company">
+              <MappingFragment StoreEntitySet="t_company">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="companycode" ColumnName="companycode" />
+                <ScalarProperty Name="companyname" ColumnName="companyname" />
+                <ScalarProperty Name="registerdate" ColumnName="registerdate" />
+                <ScalarProperty Name="logo" ColumnName="logo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="t_user">
+            <EntityTypeMapping TypeName="giftcardModel.t_user">
+              <MappingFragment StoreEntitySet="t_user">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="mobile" ColumnName="mobile" />
+                <ScalarProperty Name="registerdate" ColumnName="registerdate" />
+                <ScalarProperty Name="companyid" ColumnName="companyid" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="t_user2app">
+            <EntityTypeMapping TypeName="giftcardModel.t_user2app">
+              <MappingFragment StoreEntitySet="t_user2app">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="userid" ColumnName="userid" />
+                <ScalarProperty Name="appid" ColumnName="appid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="v_giftcard">
+            <EntityTypeMapping TypeName="giftcardModel.v_giftcard">
+              <MappingFragment StoreEntitySet="v_giftcard">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="giftcardcode" ColumnName="giftcardcode" />
+                <ScalarProperty Name="PromoId" ColumnName="PromoId" />
+                <ScalarProperty Name="generatedate" ColumnName="generatedate" />
+                <ScalarProperty Name="isused" ColumnName="isused" />
+                <ScalarProperty Name="useddate" ColumnName="useddate" />
+                <ScalarProperty Name="forcompany" ColumnName="forcompany" />
+                <ScalarProperty Name="expireddate" ColumnName="expireddate" />
+                <ScalarProperty Name="usedopenid" ColumnName="usedopenid" />
+                <ScalarProperty Name="usedmobile" ColumnName="usedmobile" />
+                <ScalarProperty Name="usedname" ColumnName="usedname" />
+                <ScalarProperty Name="amount" ColumnName="amount" />
+                <ScalarProperty Name="enabled" ColumnName="enabled" />
+                <ScalarProperty Name="jumpurl" ColumnName="jumpurl" />
+                <ScalarProperty Name="isusedt" ColumnName="isusedt" />
+                <ScalarProperty Name="enabledt" ColumnName="enabledt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="v_userapps">
+            <EntityTypeMapping TypeName="giftcardModel.v_userapps">
+              <MappingFragment StoreEntitySet="v_userapps">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="userid" ColumnName="userid" />
+                <ScalarProperty Name="appcode" ColumnName="appcode" />
+                <ScalarProperty Name="appname" ColumnName="appname" />
+                <ScalarProperty Name="client_id" ColumnName="client_id" />
+                <ScalarProperty Name="client_secret" ColumnName="client_secret" />
+                <ScalarProperty Name="kdt_id" ColumnName="kdt_id" />
+                <ScalarProperty Name="expireddate" ColumnName="expireddate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

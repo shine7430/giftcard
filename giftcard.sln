@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "giftcard", "giftcard\giftca
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AllTrustUs.WXPayAPILib", "WXPayAPILib\AllTrustUs.WXPayAPILib.csproj", "{23B983F9-FAD9-428A-87FF-DE161DCF1D6E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AllTrustUs.Data", "AllTrustUs.Data\AllTrustUs.Data.csproj", "{8B1CAC66-1C41-4B1A-B03A-DEABFEFFE599}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTest", "ConsoleTest\ConsoleTest.csproj", "{6B5B5B2B-4B17-4F1B-82A2-F21898FD0E71}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{23B983F9-FAD9-428A-87FF-DE161DCF1D6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{23B983F9-FAD9-428A-87FF-DE161DCF1D6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{23B983F9-FAD9-428A-87FF-DE161DCF1D6E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8B1CAC66-1C41-4B1A-B03A-DEABFEFFE599}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B1CAC66-1C41-4B1A-B03A-DEABFEFFE599}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B1CAC66-1C41-4B1A-B03A-DEABFEFFE599}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B1CAC66-1C41-4B1A-B03A-DEABFEFFE599}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6B5B5B2B-4B17-4F1B-82A2-F21898FD0E71}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B5B5B2B-4B17-4F1B-82A2-F21898FD0E71}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B5B5B2B-4B17-4F1B-82A2-F21898FD0E71}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B5B5B2B-4B17-4F1B-82A2-F21898FD0E71}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

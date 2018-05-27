@@ -48,8 +48,11 @@
     </Key>
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="username" Type="varchar" MaxLength="200" />
+    <Property Name="password" Type="varchar" MaxLength="200" />
     <Property Name="mobile" Type="varchar" MaxLength="200" />
     <Property Name="registerdate" Type="datetime" Precision="0" />
+    <Property Name="companyid" Type="int" />
+    <Property Name="CompanyName" Type="varchar" MaxLength="200" />
   </EntityType>
   <EntityType Name="t_user2app">
     <Key>
