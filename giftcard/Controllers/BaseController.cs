@@ -199,7 +199,7 @@ namespace AllTrustUs.giftcard.Controllers
 
         public class InvokeResponse
         {
-            public Response response
+            public YZResponse response
             {
                 get;
                 set;
@@ -212,7 +212,7 @@ namespace AllTrustUs.giftcard.Controllers
         }
 
 
-        public class Response
+        public class YZResponse
         {
             public string coupon_type
             {

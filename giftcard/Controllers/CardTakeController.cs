@@ -17,46 +17,47 @@ namespace AllTrustUs.giftcard.Controllers
         public ActionResult Index(string id)
         {
 
-            //if (!string.IsNullOrEmpty(Request.QueryString["code"]))
-            //{
-            //    //获取code码，以获取openid和access_token
-            //    string code = Request.QueryString["code"];
-            //    Log.Debug(this.GetType().ToString(), "Get code : " + code);
-            //    GetOpenidAndAccessTokenFromCode(code);
-            //}
-            //else
-            //{
-            //    //构造网页授权获取code的URL
-            //    string host = Request.Url.Host;
-            //    string path = Request.Path;
-            //    string redirect_uri = HttpUtility.UrlEncode("http://" + host + path);
-            //    WxPayData data = new WxPayData();
-            //    data.SetValue("appid", WxPayConfig.APPID);
-            //    data.SetValue("redirect_uri", redirect_uri);
-            //    data.SetValue("response_type", "code");
-            //    data.SetValue("scope", "snsapi_userinfo");
-            //    data.SetValue("state", "STATE" + "#wechat_redirect");
-            //    string url = "https://open.weixin.qq.com/connect/oauth2/authorize?" + data.ToUrl();
-            //    Log.Debug(this.GetType().ToString(), "Will Redirect to URL : " + url);
-            //    try
-            //    {
-            //        //触发微信返回code码         
-            //        Response.Redirect(url);//Redirect函数会抛出ThreadAbortException异常，不用处理这个异常
-            //    }
-            //    catch (System.Threading.ThreadAbortException ex)
-            //    {
-            //    }
-            //}
+            if (!string.IsNullOrEmpty(Request.QueryString["code"]))
+            {
+                //获取code码，以获取openid和access_token
+                string code = Request.QueryString["code"];
+                Log.Debug(this.GetType().ToString(), "Get code : " + code);
+                GetOpenidAndAccessTokenFromCode(code);
+            }
+            else
+            {
+                //构造网页授权获取code的URL
+                string host = Request.Url.Host;
+                string path = Request.Path;
+                string redirect_uri = HttpUtility.UrlEncode("http://" + host + path);
+                WxPayData data = new WxPayData();
+                data.SetValue("appid", WxPayConfig.APPID);
+                data.SetValue("redirect_uri", redirect_uri);
+                data.SetValue("response_type", "code");
+                data.SetValue("scope", "snsapi_userinfo");
+                data.SetValue("state", "STATE" + "#wechat_redirect");
+                string url = "https://open.weixin.qq.com/connect/oauth2/authorize?" + data.ToUrl();
+                Log.Debug(this.GetType().ToString(), "Will Redirect to URL : " + url);
+                try
+                {
+                    //触发微信返回code码    
+                    
+                    Response.Redirect(url);//Redirect函数会抛出ThreadAbortException异常，不用处理这个异常
+                }
+                catch (System.Threading.ThreadAbortException ex)
+                {
+                }
+            }
 
-            ViewBag.openid = "okou5v0jwgn_KHa85arH08pt5gtI";
-            
-            ViewBag.headimgurl = "http://wx.qlogo.cn/mmopen/vi_32/UicBUoZxmWeEy4PoxibVSTCWg2coTaG4bjoNFQKdF8ylI98bzHiaZVB0NEJbZyj0mBPibWUbXFQMJc9NibQicmdDAAoQ/0";
-           
-            ViewBag.nickname = "蜜岛果源";
+            //ViewBag.openid = "okou5v0jwgn_KHa85arH08pt5gtI";
 
-            //ViewBag.openid = this.CurrentWeXUser.openid;
-            //ViewBag.headimgurl = this.CurrentWeXUser.headimgurl;
-            //ViewBag.nickname = this.CurrentWeXUser.nickname;
+            //ViewBag.headimgurl = "http://wx.qlogo.cn/mmopen/vi_32/UicBUoZxmWeEy4PoxibVSTCWg2coTaG4bjoNFQKdF8ylI98bzHiaZVB0NEJbZyj0mBPibWUbXFQMJc9NibQicmdDAAoQ/0";
+
+            //ViewBag.nickname = "蜜岛果源";
+
+            ViewBag.openid = this.CurrentWeXUser.openid;
+            ViewBag.headimgurl = this.CurrentWeXUser.headimgurl;
+            ViewBag.nickname = this.CurrentWeXUser.nickname;
             ViewBag.appcode = id;
             return View();
         }

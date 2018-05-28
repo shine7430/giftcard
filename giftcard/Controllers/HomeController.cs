@@ -62,15 +62,15 @@ namespace AllTrustUs.giftcard.Controllers
 
         public JsonResult doAppCreate(String AppName, String kdt_id, String client_id, String client_secret)
         {
-
+            var _guid = Guid.NewGuid().ToString().Replace("-", "");
             giftcardEntities db = new giftcardEntities();
 
             var result = "{\"response\": {\"issuccess\": \"1\",\"msg\": \"创建成功！\"}}";
             var isql = @"INSERT INTO t_apps(client_id,client_secret,kdt_id,appname,expireddate,status,appcode)
-VALUES ('" + client_id + "', '" + client_secret + "', '" + kdt_id + "','" + AppName + "', '" + DateTime.Now.AddMonths(1).ToString("yyyy/MM/dd") + " 23:59:59" + "', 'active', '" + Guid.NewGuid().ToString().Replace("-", "") + "');";
+VALUES ('" + client_id + "', '" + client_secret + "', '" + kdt_id + "','" + AppName + "', '" + DateTime.Now.AddMonths(3).ToString("yyyy/MM/dd") + " 23:59:59" + "', 'active', '" + _guid + "');";
             db.Database.ExecuteSqlCommand(isql);
 
-            var tp = db.Database.SqlQuery<t_apps>("select * from t_apps where client_id='" + client_id + "'").FirstOrDefault();
+            var tp = db.Database.SqlQuery<t_apps>("select * from t_apps where appcode='" + _guid + "'").FirstOrDefault();
             db.Database.ExecuteSqlCommand("insert into t_user2app(appid,userid) VALUES ('" + tp.id + "','" + CurrentUser.id + "')");
             return Json(result, JsonRequestBehavior.AllowGet);
 

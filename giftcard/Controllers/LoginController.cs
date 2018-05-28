@@ -27,27 +27,33 @@ namespace AllTrustUs.giftcard.Controllers
 
             var result = "{\"response\": {\"issuccess\": \"1\",\"msg\": \"注册成功!\"}}";
             giftcardEntities db = new giftcardEntities();
-            var u = db.Database.SqlQuery<t_user>("select * from t_user where mobile='" + mobile + "'").ToList();
-            var _message = "";
-            if (u.Count > 0)
+            try
             {
-                _message= "手机号已存在！";
-               
-            }
-            var c = db.Database.SqlQuery<t_user>("select * from t_user where CompanyName='" + CompanyName + "'").ToList();
-            if (c.Count > 0)
-            {
-                _message = "公司已存在！";
-            }
-            if(string.IsNullOrEmpty(_message))
-            {
-                var isql = @"INSERT INTO t_user(username,password,mobile,registerdate,companyid,CompanyName)
+                var u = db.Database.SqlQuery<t_user>("select * from t_user where mobile='" + mobile + "'").ToList();
+                var _message = "";
+                if (u.Count > 0)
+                {
+                    _message = "手机号已存在！";
+
+                }
+                var c = db.Database.SqlQuery<t_user>("select * from t_user where CompanyName='" + CompanyName + "'").ToList();
+                if (c.Count > 0)
+                {
+                    _message = "公司已存在！";
+                }
+                if (string.IsNullOrEmpty(_message))
+                {
+                    var isql = @"INSERT INTO t_user(username,password,mobile,registerdate,companyid,CompanyName)
 VALUES ('" + mobile + "', '" + MD5Encrypt(passowrd) + "', '" + mobile + "', '" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "', null, '" + CompanyName + "');";
-                db.Database.ExecuteSqlCommand(isql);
-            }
-            else
+                    db.Database.ExecuteSqlCommand(isql);
+                }
+                else
+                {
+                    result = "{\"response\": {\"issuccess\": \"0\",\"msg\": \"" + _message + "\"}}";
+                }
+            }catch(Exception ex)
             {
-                result = "{\"response\": {\"issuccess\": \"0\",\"msg\": \""+ _message + "\"}}";
+                result = "{\"response\": {\"issuccess\": \"0\",\"msg\": \"" + ex.Message + "\"}}";
             }
             return Json(result, JsonRequestBehavior.AllowGet);
         }

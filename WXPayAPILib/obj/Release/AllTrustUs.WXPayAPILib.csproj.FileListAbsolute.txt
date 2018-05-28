@@ -22,3 +22,11 @@ D:\Spreadtrum\21.水果\SweetesFruits\SquirrelPocket\WXPayAPILib\bin\Release\Dee
 D:\Spreadtrum\21.水果\SweetesFruits\SquirrelPocket\WXPayAPILib\obj\Release\AllTrustUs.WXPayAPILib.csprojResolveAssemblyReference.cache
 D:\Spreadtrum\21.水果\SweetesFruits\SquirrelPocket\WXPayAPILib\obj\Release\AllTrustUs.WXPayAPILib.dll
 D:\Spreadtrum\21.水果\SweetesFruits\SquirrelPocket\WXPayAPILib\obj\Release\AllTrustUs.WXPayAPILib.pdb
+D:\Spreadtrum\Source\Repos\giftcard\WXPayAPILib\bin\Release\AllTrustUs.WXPayAPILib.dll
+D:\Spreadtrum\Source\Repos\giftcard\WXPayAPILib\bin\Release\AllTrustUs.WXPayAPILib.pdb
+D:\Spreadtrum\Source\Repos\giftcard\WXPayAPILib\bin\Release\LitJson.dll
+D:\Spreadtrum\Source\Repos\giftcard\WXPayAPILib\obj\Release\AllTrustUs.WXPayAPILib.csprojAssemblyReference.cache
+D:\Spreadtrum\Source\Repos\giftcard\WXPayAPILib\obj\Release\AllTrustUs.WXPayAPILib.csproj.CoreCompileInputs.cache
+D:\Spreadtrum\Source\Repos\giftcard\WXPayAPILib\obj\Release\AllTrustUs.WXPayAPILib.csproj.CopyComplete
+D:\Spreadtrum\Source\Repos\giftcard\WXPayAPILib\obj\Release\AllTrustUs.WXPayAPILib.dll
+D:\Spreadtrum\Source\Repos\giftcard\WXPayAPILib\obj\Release\AllTrustUs.WXPayAPILib.pdb

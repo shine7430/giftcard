@@ -3,14 +3,13 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@Styles.Render("~/Content/layer/css")
-
-@Scripts.Render("~/Content/layer")
-@Scripts.Render("~/Content/jquery-validation")
+<link href="~/Content/layer/skin/layer.css" rel="stylesheet" />
+<script src="~/Content/layer/layer.js"></script>
+<script src="~/Content/jquery-validation/jquery.validate.min.js"></script>
 <style>
     #signupForm .error {
         color: red;
-        font-weight:normal;
+        font-weight: normal;
     }
 </style>
 <form id="signupForm" runat="server">
@@ -27,7 +26,7 @@
                 <input class="form-control" placeholder="公司名称" type="text" name="txtCompanyName" id="txtCompanyName" />
             </div>
             <div class="form-group">
-                <input href="#"  type="submit" class="btn btn-primary btn-small" value="注 册"/>
+                <input href="#" type="submit" class="btn btn-primary btn-small" value="注 册" />
             </div>
         </div>
 
@@ -79,7 +78,7 @@
 
             $.ajax({
             type: "POST",
-            async: false,
+            async: true,
             url: "@Url.Action("doRegister")",
             contentType: "application/x-www-form-urlencoded", //必须有
                 data: { mobile: $("#txtContacterMP").val(), passowrd: $("#txtPassword").val(), CompanyName: $("#txtCompanyName").val()},
@@ -94,7 +93,7 @@
                     layer.alert("注册成功", { icon: 6 }, function () {
                         window.location.href = "/Login/index";
                     });
-                    
+
                 }
 
             },

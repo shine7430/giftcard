@@ -1,0 +1,111 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/layer/skin/layer.css" rel="stylesheet" />
+<script src="~/Content/layer/layer.js"></script>
+<script src="~/Content/jquery-validation/jquery.validate.min.js"></script>
+<style>
+    #signupForm .error {
+        color: red;
+        font-weight: normal;
+    }
+</style>
+<form id="signupForm" runat="server">
+    <div>
+        <div class="row">
+
+            <div class="form-group">
+                <input class="form-control" placeholder="手机号" type="number" name="txtContacterMP" id="txtContacterMP" />
+            </div>
+            <div class="form-group">
+                <input class="form-control" placeholder="密码" type="password" name="txtPassword" id="txtPassword" />
+            </div>
+            <div class="form-group">
+                <input class="form-control" placeholder="公司名称" type="text" name="txtCompanyName" id="txtCompanyName" />
+            </div>
+            <div class="form-group">
+                <input href="#" type="submit" class="btn btn-primary btn-small" value="注 册" />
+            </div>
+        </div>
+
+    </div>
+</form>
+<script>
+    $(function () {
+
+        $("#signupForm").validate({
+            rules: {
+                name: "required",
+                txtContacterMP: {
+                    required: true,
+                    minlength: 11,
+                    maxlength: 11
+                },
+                txtPassword: {
+                    required: true,
+                    minlength: 6,
+                },
+                txtCompanyName: {
+                    required: true
+                }
+
+            },
+            messages: {
+                name: "*",
+                txtContacterMP: {
+                    required: "* 请输入手机号",
+                    minlength: "* 确认手机为11个数字",
+                    maxlength: "* 确认手机为11个数字"
+                },
+                txtPassword: {
+                    required: "* 请输入密码",
+                    minlength: "* 请至少输入6位字符",
+                },
+                txtCompanyName: {
+                    required: "* 请输入公司名称"
+                }
+            }
+        });
+    })
+
+    $.validator.setDefaults({
+        submitHandler: function () {
+            //layer.load(0, { shade: 0.1 });
+            debugger;
+
+
+            $.ajax({
+            type: "POST",
+            async: false,
+            url: "@Url.Action("doRegister")",
+            contentType: "application/x-www-form-urlencoded", //必须有
+                data: { mobile: $("#txtContacterMP").val(), passowrd: $("#txtPassword").val(), CompanyName: $("#txtCompanyName").val()},
+            //currentorder.toString()
+            success: function (returndata) {
+                var result = JSON.parse(returndata);
+                if (result.response.issuccess == 0) {
+
+                    layer.alert(result.response.msg, { icon: 5 });
+                }
+                else {
+                    layer.alert("注册成功", { icon: 6 }, function () {
+                        window.location.href = "/Login/index";
+                    });
+
+                }
+
+            },
+            error: function (x, e) {
+                layer.alert("消息发送异常，请重试。");
+            },
+            complete: function (x) {
+                //alert("complete");
+            }
+        });
+
+        }
+    });
+
+</script>

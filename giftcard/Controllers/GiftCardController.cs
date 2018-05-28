@@ -18,7 +18,18 @@ namespace AllTrustUs.giftcard.Controllers
         }
         public ActionResult CardGenerate(string id)
         {
-            @ViewBag.Title = "礼品码管理";
+            ViewBag.Title = "礼品码管理";
+            ViewBag.appcode = id;
+            return View();
+        }
+
+        public JsonResult GetYouZanCards(string id)
+        {
+            giftcardEntities db = new giftcardEntities();
+            var app = db.Database.SqlQuery<t_apps>("select * from t_apps where appcode='" + id + "'").FirstOrDefault();
+            ViewBag.apphormurl = app.homeurl;
+            
+
             Auth auth = new Token(getToken(id)); // Auth auth = new Sign("app_id", "app_secret");
             YZClient yzClient = new DefaultYZClient(auth);
             Dictionary<string, object> dict;
@@ -30,11 +41,11 @@ namespace AllTrustUs.giftcard.Controllers
             var result = yzClient.Invoke("youzan.ump.coupon.search", "3.0.0", "POST", dict, null);
 
             ViewBag.result = result;
-            giftcardEntities db = new giftcardEntities();
-            var app = db.Database.SqlQuery<t_apps>("select * from t_apps where appcode='" + id + "'").FirstOrDefault();
-            ViewBag.apphormurl = app.homeurl;
-            return View();
+            var result1 = "{\"response\": {\"issuccess\": \"1\",\"msg\": \"验证成功!\",\"giftcardlist\":" + result + "}}";
+
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
+
 
         public JsonResult GenerateGiftCode(String count, String amount, String expireddate, String forcompany, String PromoId, String jumpurl)
         {

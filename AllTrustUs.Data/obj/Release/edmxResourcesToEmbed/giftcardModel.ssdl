@@ -1,0 +1,146 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="giftcardModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.7" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="giftcard">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="giftcardcode" Type="varchar" MaxLength="200" />
+    <Property Name="PromoId" Type="int" />
+    <Property Name="generatedate" Type="varchar" MaxLength="200" />
+    <Property Name="isused" Type="varchar" MaxLength="5" />
+    <Property Name="useddate" Type="varchar" MaxLength="200" />
+    <Property Name="forcompany" Type="varchar" MaxLength="200" />
+    <Property Name="expireddate" Type="varchar" MaxLength="200" />
+    <Property Name="usedopenid" Type="varchar" MaxLength="200" />
+    <Property Name="usedmobile" Type="varchar" MaxLength="200" />
+    <Property Name="usedname" Type="varchar" MaxLength="200" />
+    <Property Name="amount" Type="varchar" MaxLength="200" />
+    <Property Name="enabled" Type="varchar" MaxLength="200" />
+    <Property Name="jumpurl" Type="varchar" MaxLength="2000" />
+  </EntityType>
+  <EntityType Name="t_apps">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="client_id" Type="varchar" MaxLength="50" />
+    <Property Name="client_secret" Type="varchar" MaxLength="200" />
+    <Property Name="kdt_id" Type="varchar" MaxLength="50" />
+    <Property Name="appname" Type="varchar" MaxLength="50" />
+    <Property Name="expireddate" Type="datetime" Precision="0" />
+    <Property Name="status" Type="varchar" MaxLength="50" />
+    <Property Name="appcode" Type="varchar" MaxLength="50" />
+    <Property Name="homeurl" Type="varchar" MaxLength="1000" />
+  </EntityType>
+  <EntityType Name="t_company">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="companycode" Type="varchar" MaxLength="50" />
+    <Property Name="companyname" Type="varchar" MaxLength="200" />
+    <Property Name="registerdate" Type="datetime" Precision="0" />
+    <Property Name="logo" Type="varchar" MaxLength="200" />
+  </EntityType>
+  <EntityType Name="t_user">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="username" Type="varchar" MaxLength="50" />
+    <Property Name="password" Type="varchar" MaxLength="50" />
+    <Property Name="mobile" Type="varchar" MaxLength="50" />
+    <Property Name="registerdate" Type="datetime" Precision="0" />
+    <Property Name="companyid" Type="int" />
+    <Property Name="CompanyName" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="t_user2app">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="userid" Type="int" />
+    <Property Name="appid" Type="int" />
+  </EntityType>
+  <!--生成过程中发现错误:
+警告 6002: 表/视图“def.giftcard.v_giftcard”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+  <EntityType Name="v_giftcard">
+    <Key>
+      <PropertyRef Name="id" />
+      <PropertyRef Name="isusedt" />
+      <PropertyRef Name="enabledt" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="giftcardcode" Type="varchar" MaxLength="200" />
+    <Property Name="PromoId" Type="int" />
+    <Property Name="generatedate" Type="varchar" MaxLength="200" />
+    <Property Name="isused" Type="varchar" MaxLength="5" />
+    <Property Name="useddate" Type="varchar" MaxLength="200" />
+    <Property Name="forcompany" Type="varchar" MaxLength="200" />
+    <Property Name="expireddate" Type="varchar" MaxLength="200" />
+    <Property Name="usedopenid" Type="varchar" MaxLength="200" />
+    <Property Name="usedmobile" Type="varchar" MaxLength="200" />
+    <Property Name="usedname" Type="varchar" MaxLength="200" />
+    <Property Name="amount" Type="varchar" MaxLength="200" />
+    <Property Name="enabled" Type="varchar" MaxLength="200" />
+    <Property Name="jumpurl" Type="varchar" MaxLength="2000" />
+    <Property Name="isusedt" Type="varchar" MaxLength="3" Nullable="false" />
+    <Property Name="enabledt" Type="varchar" MaxLength="3" Nullable="false" />
+  </EntityType>
+  <!--生成过程中发现错误:
+警告 6002: 表/视图“def.giftcard.v_userapps”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+  <EntityType Name="v_userapps">
+    <Key>
+      <PropertyRef Name="id" />
+      <PropertyRef Name="userid" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="userid" Type="int" Nullable="false" />
+    <Property Name="appcode" Type="varchar" MaxLength="50" />
+    <Property Name="appname" Type="varchar" MaxLength="50" />
+    <Property Name="client_id" Type="varchar" MaxLength="50" />
+    <Property Name="client_secret" Type="varchar" MaxLength="200" />
+    <Property Name="kdt_id" Type="varchar" MaxLength="50" />
+    <Property Name="expireddate" Type="datetime" Precision="0" />
+  </EntityType>
+  <EntityContainer Name="giftcardModelStoreContainer">
+    <EntitySet Name="giftcard" EntityType="Self.giftcard" Schema="giftcard" store:Type="Tables" />
+    <EntitySet Name="t_apps" EntityType="Self.t_apps" Schema="giftcard" store:Type="Tables" />
+    <EntitySet Name="t_company" EntityType="Self.t_company" Schema="giftcard" store:Type="Tables" />
+    <EntitySet Name="t_user" EntityType="Self.t_user" Schema="giftcard" store:Type="Tables" />
+    <EntitySet Name="t_user2app" EntityType="Self.t_user2app" Schema="giftcard" store:Type="Tables" />
+    <EntitySet Name="v_giftcard" EntityType="Self.v_giftcard" store:Type="Views" store:Schema="giftcard">
+      <DefiningQuery>SELECT
+`v_giftcard`.`id`, 
+`v_giftcard`.`giftcardcode`, 
+`v_giftcard`.`PromoId`, 
+`v_giftcard`.`generatedate`, 
+`v_giftcard`.`isused`, 
+`v_giftcard`.`useddate`, 
+`v_giftcard`.`forcompany`, 
+`v_giftcard`.`expireddate`, 
+`v_giftcard`.`usedopenid`, 
+`v_giftcard`.`usedmobile`, 
+`v_giftcard`.`usedname`, 
+`v_giftcard`.`amount`, 
+`v_giftcard`.`enabled`, 
+`v_giftcard`.`jumpurl`, 
+`v_giftcard`.`isusedt`, 
+`v_giftcard`.`enabledt`
+FROM `v_giftcard` AS `v_giftcard`</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="v_userapps" EntityType="Self.v_userapps" store:Type="Views" store:Schema="giftcard">
+      <DefiningQuery>SELECT
+`v_userapps`.`id`, 
+`v_userapps`.`userid`, 
+`v_userapps`.`appcode`, 
+`v_userapps`.`appname`, 
+`v_userapps`.`client_id`, 
+`v_userapps`.`client_secret`, 
+`v_userapps`.`kdt_id`, 
+`v_userapps`.`expireddate`
+FROM `v_userapps` AS `v_userapps`</DefiningQuery>
+    </EntitySet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="giftcardModelStoreContainer" CdmEntityContainer="giftcardEntities">
+    <EntitySetMapping Name="giftcard">
+      <EntityTypeMapping TypeName="giftcardModel.giftcard">
+        <MappingFragment StoreEntitySet="giftcard">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="giftcardcode" ColumnName="giftcardcode" />
+          <ScalarProperty Name="PromoId" ColumnName="PromoId" />
+          <ScalarProperty Name="generatedate" ColumnName="generatedate" />
+          <ScalarProperty Name="isused" ColumnName="isused" />
+          <ScalarProperty Name="useddate" ColumnName="useddate" />
+          <ScalarProperty Name="forcompany" ColumnName="forcompany" />
+          <ScalarProperty Name="expireddate" ColumnName="expireddate" />
+          <ScalarProperty Name="usedopenid" ColumnName="usedopenid" />
+          <ScalarProperty Name="usedmobile" ColumnName="usedmobile" />
+          <ScalarProperty Name="usedname" ColumnName="usedname" />
+          <ScalarProperty Name="amount" ColumnName="amount" />
+          <ScalarProperty Name="enabled" ColumnName="enabled" />
+          <ScalarProperty Name="jumpurl" ColumnName="jumpurl" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="t_company">
+      <EntityTypeMapping TypeName="giftcardModel.t_company">
+        <MappingFragment StoreEntitySet="t_company">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="companycode" ColumnName="companycode" />
+          <ScalarProperty Name="companyname" ColumnName="companyname" />
+          <ScalarProperty Name="registerdate" ColumnName="registerdate" />
+          <ScalarProperty Name="logo" ColumnName="logo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="t_user">
+      <EntityTypeMapping TypeName="giftcardModel.t_user">
+        <MappingFragment StoreEntitySet="t_user">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="username" ColumnName="username" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="mobile" ColumnName="mobile" />
+          <ScalarProperty Name="registerdate" ColumnName="registerdate" />
+          <ScalarProperty Name="companyid" ColumnName="companyid" />
+          <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="t_user2app">
+      <EntityTypeMapping TypeName="giftcardModel.t_user2app">
+        <MappingFragment StoreEntitySet="t_user2app">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="userid" ColumnName="userid" />
+          <ScalarProperty Name="appid" ColumnName="appid" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="v_giftcard">
+      <EntityTypeMapping TypeName="giftcardModel.v_giftcard">
+        <MappingFragment StoreEntitySet="v_giftcard">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="giftcardcode" ColumnName="giftcardcode" />
+          <ScalarProperty Name="PromoId" ColumnName="PromoId" />
+          <ScalarProperty Name="generatedate" ColumnName="generatedate" />
+          <ScalarProperty Name="isused" ColumnName="isused" />
+          <ScalarProperty Name="useddate" ColumnName="useddate" />
+          <ScalarProperty Name="forcompany" ColumnName="forcompany" />
+          <ScalarProperty Name="expireddate" ColumnName="expireddate" />
+          <ScalarProperty Name="usedopenid" ColumnName="usedopenid" />
+          <ScalarProperty Name="usedmobile" ColumnName="usedmobile" />
+          <ScalarProperty Name="usedname" ColumnName="usedname" />
+          <ScalarProperty Name="amount" ColumnName="amount" />
+          <ScalarProperty Name="enabled" ColumnName="enabled" />
+          <ScalarProperty Name="jumpurl" ColumnName="jumpurl" />
+          <ScalarProperty Name="isusedt" ColumnName="isusedt" />
+          <ScalarProperty Name="enabledt" ColumnName="enabledt" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="v_userapps">
+      <EntityTypeMapping TypeName="giftcardModel.v_userapps">
+        <MappingFragment StoreEntitySet="v_userapps">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="userid" ColumnName="userid" />
+          <ScalarProperty Name="appcode" ColumnName="appcode" />
+          <ScalarProperty Name="appname" ColumnName="appname" />
+          <ScalarProperty Name="client_id" ColumnName="client_id" />
+          <ScalarProperty Name="client_secret" ColumnName="client_secret" />
+          <ScalarProperty Name="kdt_id" ColumnName="kdt_id" />
+          <ScalarProperty Name="expireddate" ColumnName="expireddate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="t_apps">
+      <EntityTypeMapping TypeName="giftcardModel.t_apps">
+        <MappingFragment StoreEntitySet="t_apps">
+          <ScalarProperty Name="homeurl" ColumnName="homeurl" />
+          <ScalarProperty Name="appcode" ColumnName="appcode" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="expireddate" ColumnName="expireddate" />
+          <ScalarProperty Name="appname" ColumnName="appname" />
+          <ScalarProperty Name="kdt_id" ColumnName="kdt_id" />
+          <ScalarProperty Name="client_secret" ColumnName="client_secret" />
+          <ScalarProperty Name="client_id" ColumnName="client_id" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

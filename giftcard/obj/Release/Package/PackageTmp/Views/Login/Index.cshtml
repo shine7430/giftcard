@@ -1,0 +1,101 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/layer/skin/layer.css" rel="stylesheet" />
+<script src="~/Content/layer/layer.js"></script>
+<script src="~/Content/jquery-validation/jquery.validate.min.js"></script>
+
+<style>
+    #signupForm .error {
+        color: red;
+        font-weight: normal;
+    }
+</style>
+<form id="signupForm" runat="server">
+
+    <div>
+        <div class="row">
+
+            <div class="form-group">
+                <input class="form-control" placeholder="手机号" type="number" name="ContacterMP" id="txtContacterMP" />
+            </div>
+            <div class="form-group">
+                <input class="form-control" placeholder="密码" type="password" name="txtPassword" id="txtPassword" />
+            </div>
+            <div class="form-group">
+                <input href="#" class="btn btn-primary btn-small" value="登 录" type="submit"/> <a href="/Login/Register" class="btn btn-primary btn-small">注 册</a>
+            </div>
+        </div>
+
+    </div>
+</form>
+<script>
+    $(function () {
+
+        $("#signupForm").validate({
+            rules: {
+                name: "required",
+                txtContacterMP: {
+                    required: true,
+                    minlength: 11,
+                    maxlength: 11
+                },
+                txtPassword: {
+                    required: true,
+                    minlength: 6,
+                }
+
+            },
+            messages: {
+                name: "*",
+                txtContacterMP: {
+                    required: "* 请输入手机号",
+                    minlength: "* 确认手机为11个数字",
+                    maxlength: "* 确认手机为11个数字"
+                },
+                txtPassword: {
+                    required: "* 请输入密码",
+                    minlength: "* 请至少输入6位字符",
+                }
+            }
+        });
+    })
+
+    $.validator.setDefaults({
+        submitHandler: function () {
+            //layer.load(0, { shade: 0.1 });
+            //debugger;
+
+
+            $.ajax({
+            type: "POST",
+            async: false,
+            url: "@Url.Action("dologin")",
+            contentType: "application/x-www-form-urlencoded", //必须有
+                data: { mobile: $("#txtContacterMP").val(), passowrd: $("#txtPassword").val()},
+            //currentorder.toString()
+            success: function (returndata) {
+                var result = JSON.parse(returndata);
+                if (result.response.issuccess == 0) {
+
+                    layer.alert(result.response.msg, { icon: 5 });
+                }
+                else {
+                    window.location.href = "/Home/index";
+                }
+
+            },
+            error: function (x, e) {
+                layer.alert("消息发送异常，请重试。");
+            },
+            complete: function (x) {
+                //alert("complete");
+            }
+        });
+
+        }
+    });
+
+</script>
