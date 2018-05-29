@@ -29,11 +29,37 @@
 @{
     ViewBag.Title = "主页-有赞礼品码平台";
 }
-
+<style>
+    .homebg {
+        display: inline;
+        margin-left: 200px;
+    }
+    .jumbotron-left {
+        display: inline-grid;
+    }
+    .homebgadd {
+        width: 300px;
+    }
+</style>
+<script>
+    $(function () {
+        if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+            //window.location.href = "https://www.baidu.com/";
+            $(".homebg img").addClass("homebgadd");
+            $(".homebg").css("margin-left","0px");
+            
+        }
+    })
+</script>
 <div class="jumbotron">
-    <h2>有赞礼品码管理平台</h2>
-    <p class="lead">免费有赞礼品码管理平台</p>
-    <p class="lead">仅需三步创建自由礼品码</p>
+    <div class="jumbotron-left">
+        <h2>有赞礼品码管理平台</h2>
+        <p class="lead">免费有赞礼品码管理平台</p>
+        <p class="lead">仅需三步创建自由礼品码</p>
+    </div>
+    <div class="homebg">
+        <img src="~/images/homebg.png" />
+    </div>
 </div>
 
 <div class="row">
