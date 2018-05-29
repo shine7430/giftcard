@@ -76,10 +76,58 @@ VALUES ('" + mobile + "', '" + MD5Encrypt(passowrd) + "', '" + mobile + "', '" +
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }
+        public JsonResult doCodeValidate(String mobile, String code)
+        {
+            var result = "{\"response\": {\"issuccess\": \"0\",\"msg\": \"用户名或密码错误！\"}}";
 
+            if(code== SMSCode)
+            {
+                result = "{\"response\": {\"issuccess\": \"1\",\"msg\": \"验证通过！\"}}";
+            }
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult doCodeGet(String mobile)
+        {
+            int sdkappid = 1400096240;
+            string appkey = "409fa0923289125b7b12025b0b281535";
+            SmsSingleSenderResult singleResult;
+            SmsSingleSender singleSender = new SmsSingleSender(sdkappid, appkey);
+            List<string> templParams = new List<string>();
+            SMSCode = GetRandomString(4, true, false, false, false, "");
+            templParams.Add(SMSCode);
+            singleResult = singleSender.SendWithParam("86", mobile, 128733, templParams, "", "", "");
+            //var result = "{\"response\": {\"issuccess\": \"0\",\"msg\": \"用户名或密码错误！\"}}";
+
+            return Json(singleResult, JsonRequestBehavior.AllowGet);
+        }
+        
         public void logout()
         {
             System.Web.HttpContext.Current.Session["User"] = null;
+        }
+
+        public static string SMSCode
+        {
+            get
+            {
+                var context = System.Web.HttpContext.Current;
+                if (context.Session["SMSCode"] != null)
+                {
+                    return (string)context.Session["SMSCode"];
+                }
+                else
+                {
+                    //context.Response.Redirect("/Home", true);
+                    return null;
+                }
+            }
+            set
+            {
+                var context = System.Web.HttpContext.Current;
+                context.Session["SMSCode"] = value;
+                context.Session.Timeout = 1;
+            }
         }
     }
 }

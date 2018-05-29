@@ -21,6 +21,8 @@
         layer.load(2);
         ShowSingle();
         //ShowGiftCode();
+
+        setInterval("ShowSingle()", 30000);
     })
 
     var _youzhan_cards = [];
@@ -179,7 +181,7 @@
         $("#tableSingle2").html("");
         $.ajax({
             type: "POST",
-            async: false,
+            async: true,
             url: "@Url.Action("getgiftcard")",
             contentType: "application/x-www-form-urlencoded", //必须有
             data: { PromoId: id },

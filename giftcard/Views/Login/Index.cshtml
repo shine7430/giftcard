@@ -12,6 +12,15 @@
         color: red;
         font-weight: normal;
     }
+    #labcode {
+        font-family: Arial;
+        font-style: italic;
+        font-weight: bold;
+        border: 0;
+        letter-spacing: 2px;
+        color: blue;
+        cursor:pointer;
+    } 
 </style>
 <form id="signupForm" runat="server">
 
@@ -25,19 +34,25 @@
                 <input class="form-control" placeholder="密码" type="password" name="txtPassword" id="txtPassword" />
             </div>
             <div class="form-group">
-                <input href="#" class="btn btn-primary btn-small" value="登 录" type="submit"/> <a href="/Login/Register" class="btn btn-primary btn-small">注 册</a>
+                <input class="form-control" style="display: table-cell;
+    width: 100px;" placeholder="验证码" name="code"  type="text" id="code" />
+                <label id="labcode" onclick="createCode()" ></label>
+            </div>
+            <div class="form-group">
+                <input href="#" class="btn btn-primary btn-small" value="登 录" type="submit" /> <a href="/Login/Register" class="btn btn-primary btn-small">注 册</a>
             </div>
         </div>
 
     </div>
 </form>
+
 <script>
     $(function () {
 
         $("#signupForm").validate({
             rules: {
                 name: "required",
-                txtContacterMP: {
+                ContacterMP: {
                     required: true,
                     minlength: 11,
                     maxlength: 11
@@ -45,12 +60,15 @@
                 txtPassword: {
                     required: true,
                     minlength: 6,
+                },
+                code: {
+                    required: true
                 }
 
             },
             messages: {
                 name: "*",
-                txtContacterMP: {
+                ContacterMP: {
                     required: "* 请输入手机号",
                     minlength: "* 确认手机为11个数字",
                     maxlength: "* 确认手机为11个数字"
@@ -58,44 +76,77 @@
                 txtPassword: {
                     required: "* 请输入密码",
                     minlength: "* 请至少输入6位字符",
+                },
+                code: {
+                    required: "* 请输入验证码"
                 }
             }
         });
+        createCode();
     })
 
     $.validator.setDefaults({
         submitHandler: function () {
             //layer.load(0, { shade: 0.1 });
             //debugger;
-
-            layer.load(2);
-            $.ajax({
-            type: "POST",
-            async: true,
-            url: "@Url.Action("dologin")",
-            contentType: "application/x-www-form-urlencoded", //必须有
-                data: { mobile: $("#txtContacterMP").val(), passowrd: $("#txtPassword").val()},
-            //currentorder.toString()
-            success: function (returndata) {
-                var result = JSON.parse(returndata);
-                if (result.response.issuccess == 0) {
-
-                    layer.alert(result.response.msg, { icon: 5 });
-                }
-                else {
-                    window.location.href = "/Home/index";
-                }
-
-            },
-            error: function (x, e) {
-                layer.alert("消息发送异常，请重试。");
-            },
-            complete: function (x) {
-                //alert("complete");
+            if (validate()) {
+                layer.load(2);
+                $.ajax({
+                    type: "POST",
+                    async: true,
+                    url: "@Url.Action("dologin")",
+                    contentType: "application/x-www-form-urlencoded", //必须有
+                    data: { mobile: $("#txtContacterMP").val(), passowrd: $("#txtPassword").val() },
+                    //currentorder.toString()
+                    success: function (returndata) {
+                        var result = JSON.parse(returndata);
+                        if (result.response.issuccess == 0) {
+                            layer.closeAll();
+                            layer.alert(result.response.msg, { icon: 5 });
+                        }
+                        else {
+                            window.location.href = "/Home/index";
+                        }
+                        
+                    },
+                    error: function (x, e) {
+                        layer.alert("消息发送异常，请重试。");
+                    },
+                    complete: function (x) {
+                        //alert("complete");
+                    }
+                });
             }
-        });
-
+            else {
+                layer.alert("验证码输入错误！");
+            }
         }
     });
 
+    var code ; //在全局定义验证码
+//产生验证码
+    function createCode() {
+        code = "";
+        var codeLength = 6;//验证码的长度
+        var random = new Array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R',
+            'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z');//随机数
+        for (var i = 0; i < codeLength; i++) {//循环操作
+            var index = Math.floor(Math.random() * 36);//取得随机数的索引（0~35）
+            code += random[index];//根据索引取得随机数加到code上
+        }
+        $("#labcode").text(code);//把code值赋给验证码
+    }
+//校验验证码
+    function validate() {
+        var inputCode = $("#code").val().toUpperCase(); //取得输入的验证码并转化为大写
+        if (inputCode != code) { //若输入的验证码与产生的验证码不一致时
+             //则弹出验证码输入错误
+            createCode();//刷新验证码
+            $("#code").text("");//清空文本框
+        }
+        else { //输入正确时
+            return true; //弹出^-^
+        }
+        return false;
+    }
 </script>

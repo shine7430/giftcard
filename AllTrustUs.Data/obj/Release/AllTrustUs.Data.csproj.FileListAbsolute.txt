@@ -18,3 +18,5 @@ D:\Spreadtrum\Source\Repos\giftcard\AllTrustUs.Data\obj\Release\AllTrustUs.Data.
 D:\Spreadtrum\Source\Repos\giftcard\AllTrustUs.Data\obj\Release\AllTrustUs.Data.csproj.CopyComplete
 D:\Spreadtrum\Source\Repos\giftcard\AllTrustUs.Data\obj\Release\AllTrustUs.Data.dll
 D:\Spreadtrum\Source\Repos\giftcard\AllTrustUs.Data\obj\Release\AllTrustUs.Data.pdb
+D:\Spreadtrum\Source\Repos\giftcard\AllTrustUs.Data\bin\Release\Newtonsoft.Json.dll
+D:\Spreadtrum\Source\Repos\giftcard\AllTrustUs.Data\bin\Release\Newtonsoft.Json.xml

@@ -15,20 +15,23 @@
     <File Include="App_Code/CommonHelp.cs">
       <publishTime>05/21/2018 09:32:38</publishTime>
     </File>
+    <File Include="App_Data/giftcardDB.sql">
+      <publishTime>05/28/2018 20:29:12</publishTime>
+    </File>
     <File Include="bin/AllTrustUs.Data.dll">
-      <publishTime>05/28/2018 10:33:20</publishTime>
+      <publishTime>05/29/2018 15:23:08</publishTime>
     </File>
     <File Include="bin/AllTrustUs.Data.dll.config">
-      <publishTime>05/27/2018 09:59:24</publishTime>
+      <publishTime>05/29/2018 09:49:47</publishTime>
     </File>
     <File Include="bin/AllTrustUs.Data.pdb">
-      <publishTime>05/28/2018 10:33:20</publishTime>
+      <publishTime>05/29/2018 15:23:08</publishTime>
     </File>
     <File Include="bin/AllTrustUs.giftcard.dll">
-      <publishTime>05/28/2018 18:13:13</publishTime>
+      <publishTime>05/29/2018 15:23:14</publishTime>
     </File>
     <File Include="bin/AllTrustUs.giftcard.pdb">
-      <publishTime>05/28/2018 18:13:13</publishTime>
+      <publishTime>05/29/2018 15:23:14</publishTime>
     </File>
     <File Include="bin/AllTrustUs.WXPayAPILib.dll">
       <publishTime>05/28/2018 10:33:20</publishTime>
@@ -1062,8 +1065,20 @@
     <File Include="Content/JQueryControl/mdater/zepto.min.js">
       <publishTime>05/23/2018 13:47:05</publishTime>
     </File>
+    <File Include="Content/layer/font/iconfont.eot">
+      <publishTime>05/29/2018 12:58:20</publishTime>
+    </File>
+    <File Include="Content/layer/font/iconfont.svg">
+      <publishTime>05/29/2018 12:58:20</publishTime>
+    </File>
+    <File Include="Content/layer/font/iconfont.ttf">
+      <publishTime>05/29/2018 12:58:20</publishTime>
+    </File>
+    <File Include="Content/layer/font/iconfont.woff">
+      <publishTime>05/29/2018 12:58:20</publishTime>
+    </File>
     <File Include="Content/layer/layer.js">
-      <publishTime>05/20/2018 21:59:44</publishTime>
+      <publishTime>05/29/2018 12:48:10</publishTime>
     </File>
     <File Include="Content/layer/skin/default/icon-ext.png">
       <publishTime>05/20/2018 21:59:44</publishTime>
@@ -1083,8 +1098,14 @@
     <File Include="Content/layer/skin/layer.css">
       <publishTime>05/20/2018 21:59:44</publishTime>
     </File>
+    <File Include="Content/layer/skin/layui.css">
+      <publishTime>05/29/2018 12:56:06</publishTime>
+    </File>
+    <File Include="Content/layer/theme/default/layer.css">
+      <publishTime>05/29/2018 15:19:34</publishTime>
+    </File>
     <File Include="Content/Site.css">
-      <publishTime>05/18/2018 14:46:16</publishTime>
+      <publishTime>05/29/2018 15:22:02</publishTime>
     </File>
     <File Include="Content/style.css">
       <publishTime>05/20/2018 21:57:59</publishTime>
@@ -1118,6 +1139,9 @@
     </File>
     <File Include="images/orcode.png">
       <publishTime>05/27/2018 21:37:27</publishTime>
+    </File>
+    <File Include="images/youzanyun.png">
+      <publishTime>05/28/2018 20:41:25</publishTime>
     </File>
     <File Include="Scripts/bootstrap.js">
       <publishTime>05/18/2018 14:46:40</publishTime>
@@ -1171,7 +1195,7 @@
       <publishTime>05/26/2018 14:09:33</publishTime>
     </File>
     <File Include="Views/GiftCard/CardGenerate.cshtml">
-      <publishTime>05/28/2018 18:08:57</publishTime>
+      <publishTime>05/28/2018 20:48:15</publishTime>
     </File>
     <File Include="Views/Home/About.cshtml">
       <publishTime>05/27/2018 22:04:55</publishTime>
@@ -1192,10 +1216,10 @@
       <publishTime>05/28/2018 16:35:52</publishTime>
     </File>
     <File Include="Views/Login/Index.cshtml">
-      <publishTime>05/28/2018 14:12:53</publishTime>
+      <publishTime>05/28/2018 21:50:04</publishTime>
     </File>
     <File Include="Views/Login/Register.cshtml">
-      <publishTime>05/28/2018 14:13:28</publishTime>
+      <publishTime>05/29/2018 15:12:16</publishTime>
     </File>
     <File Include="Views/Shared/Error.cshtml">
       <publishTime>05/18/2018 14:46:16</publishTime>
@@ -1210,7 +1234,7 @@
       <publishTime>05/18/2018 14:46:16</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>05/28/2018 15:04:38</publishTime>
+      <publishTime>05/29/2018 15:23:15</publishTime>
     </File>
   </ItemGroup>
 </Project>

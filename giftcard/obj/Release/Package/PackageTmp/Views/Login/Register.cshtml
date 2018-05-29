@@ -3,6 +3,7 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<link href="~/Content/layer/skin/layui.css" rel="stylesheet" />
 <link href="~/Content/layer/skin/layer.css" rel="stylesheet" />
 <script src="~/Content/layer/layer.js"></script>
 <script src="~/Content/jquery-validation/jquery.validate.min.js"></script>
@@ -14,10 +15,20 @@
 </style>
 <form id="signupForm" runat="server">
     <div>
+        
         <div class="row">
 
             <div class="form-group">
                 <input class="form-control" placeholder="手机号" type="number" name="txtContacterMP" id="txtContacterMP" />
+            </div>
+            <div class="form-group">
+                <input class="form-control" style="display: inline-grid;width: 200px;" placeholder="验证码" type="number" name="txtcode" id="txtcode" disabled="disabled" />
+                <div id="varspace" style="display: inline-grid;">
+                    <i class="layui-icon layui-icon-ok" style="font-size: 30px; color: #2aea09;display: inline-grid;display:none"></i>
+                    <i class="layui-icon layui-icon-close" style="font-size: 30px; color: red;display: inline-grid;display:none;"></i>
+                </div>
+                <label id="labsec"></label>
+                <input type="button" id="btnCodeGet" class="btn btn-primary btn-sm" value="获取">
             </div>
             <div class="form-group">
                 <input class="form-control" placeholder="密码" type="password" name="txtPassword" id="txtPassword" />
@@ -26,7 +37,7 @@
                 <input class="form-control" placeholder="公司名称" type="text" name="txtCompanyName" id="txtCompanyName" />
             </div>
             <div class="form-group">
-                <input href="#" type="submit" class="btn btn-primary btn-small" value="注 册" />
+                <input href="#" type="submit" id="btnReg" class="btn btn-primary btn-small" disabled="disabled" value="注 册" />
             </div>
         </div>
 
@@ -42,6 +53,9 @@
                     required: true,
                     minlength: 11,
                     maxlength: 11
+                },
+                txtcode: {
+                    required: true
                 },
                 txtPassword: {
                     required: true,
@@ -65,9 +79,87 @@
                 },
                 txtCompanyName: {
                     required: "* 请输入公司名称"
+                },
+                txtcode: {
+                    required: "* 请输入验证码"
                 }
             }
         });
+        var a
+        $("#btnCodeGet").on("click", function () {
+            $.ajax({
+                type: "POST",
+                async: true,
+                url: "@Url.Action("doCodeGet")",
+                contentType: "application/x-www-form-urlencoded", //必须有
+                data: { mobile: $("#txtContacterMP").val() },
+                //currentorder.toString()
+                success: function (returndata) {
+                    var result = returndata;
+                    if (result.result == 0) {
+                        $("#btnCodeGet").attr("disabled", true);
+                        $("#txtcode").attr("disabled", false);
+                        var _sec = 60;
+                        a = setInterval(function () {
+                            $("#labsec").text(_sec--);
+                            if (_sec <= 0) {
+                                window.clearInterval(a);
+                                $("#btnCodeGet").attr("disabled", false);
+                                $("#labsec").hide();
+                            }
+                        }, 1000);
+
+
+                        layer.alert("验证码已发送", { icon: 6 });
+
+                    }
+                    else {
+
+                        layer.alert(result.errmsg, { icon: 5 });
+                    }
+
+                },
+                error: function (x, e) {
+                    layer.alert("消息发送异常，请重试。");
+                }
+
+            })
+        })
+        $("#txtcode").on("keyup", function () {
+            if ($(this).val().length >= 4) {
+                $.ajax({
+                    type: "POST",
+                    async: true,
+                    url: "@Url.Action("doCodeValidate")",
+                    contentType: "application/x-www-form-urlencoded", //必须有
+                    data: { mobile: $("#txtContacterMP").val(), code: $("#txtcode").val() },
+                    //currentorder.toString()
+                    success: function (returndata) {
+                        var result = JSON.parse(returndata);
+                        if (result.response.issuccess == 1) {
+
+                            $(".layui-icon.layui-icon-ok").show();
+                            $(".layui-icon.layui-icon-close").hide();
+                            $("#txtcode").attr("disabled", true);
+                            $("#btnCodeGet").hide();
+                            $("#btnReg").attr("disabled", false);
+                            window.clearInterval(a);
+                            $("#btnCodeGet").attr("disabled", false);
+                            $("#labsec").hide();
+                        }
+                        else {
+                            $(".layui-icon.layui-icon-close").show();
+                            $(".layui-icon.layui-icon-ok").hide();
+                        }
+
+                    },
+                    error: function (x, e) {
+                        layer.alert("消息发送异常，请重试。");
+                    }
+
+                })
+            }
+        })
     })
 
     $.validator.setDefaults({
@@ -77,33 +169,33 @@
 
 
             $.ajax({
-            type: "POST",
-            async: false,
-            url: "@Url.Action("doRegister")",
-            contentType: "application/x-www-form-urlencoded", //必须有
-                data: { mobile: $("#txtContacterMP").val(), passowrd: $("#txtPassword").val(), CompanyName: $("#txtCompanyName").val()},
-            //currentorder.toString()
-            success: function (returndata) {
-                var result = JSON.parse(returndata);
-                if (result.response.issuccess == 0) {
+                type: "POST",
+                async: true,
+                url: "@Url.Action("doRegister")",
+                contentType: "application/x-www-form-urlencoded", //必须有
+                data: { mobile: $("#txtContacterMP").val(), passowrd: $("#txtPassword").val(), CompanyName: $("#txtCompanyName").val() },
+                //currentorder.toString()
+                success: function (returndata) {
+                    var result = JSON.parse(returndata);
+                    if (result.response.issuccess == 0) {
 
-                    layer.alert(result.response.msg, { icon: 5 });
+                        layer.alert(result.response.msg, { icon: 5 });
+                    }
+                    else {
+                        layer.alert("注册成功", { icon: 6 }, function () {
+                            window.location.href = "/Login/index";
+                        });
+
+                    }
+
+                },
+                error: function (x, e) {
+                    layer.alert("消息发送异常，请重试。");
+                },
+                complete: function (x) {
+                    //alert("complete");
                 }
-                else {
-                    layer.alert("注册成功", { icon: 6 }, function () {
-                        window.location.href = "/Login/index";
-                    });
-
-                }
-
-            },
-            error: function (x, e) {
-                layer.alert("消息发送异常，请重试。");
-            },
-            complete: function (x) {
-                //alert("complete");
-            }
-        });
+            });
 
         }
     });
