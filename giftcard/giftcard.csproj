@@ -439,6 +439,11 @@
     <Content Include="Content\layer\skin\default\loading-2.gif" />
     <Content Include="Content\layer\skin\layer.css" />
     <Content Include="Content\layer\skin\layui.css" />
+    <Content Include="Content\layer\theme\default\default\icon-ext.png" />
+    <Content Include="Content\layer\theme\default\default\icon.png" />
+    <Content Include="Content\layer\theme\default\default\loading-0.gif" />
+    <Content Include="Content\layer\theme\default\default\loading-1.gif" />
+    <Content Include="Content\layer\theme\default\default\loading-2.gif" />
     <Content Include="Content\layer\theme\default\layer.css" />
     <Content Include="Content\style.css" />
     <Content Include="favicon.ico" />
