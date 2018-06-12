@@ -101,22 +101,6 @@ namespace AllTrustUs.giftcard.Controllers
 
                 return curToken.access_token;
             }
-
-            //if (System.Web.HttpContext.Current.Cache["AccessToken_40161714"] != null)
-            //{
-            //    return (string)System.Web.HttpContext.Current.Cache["AccessToken_40161714"];
-            //}
-            //else
-            //{
-            //    string url = string.Format("https://open.youzan.com/oauth/token?client_id=2e6259a7d6e91d6875&client_secret=7dc62b1091aff300d4bf6153e7e84b84&grant_type=silent&kdt_id=40161714");
-            //    AccessToken curToken = AccessTokenRequest(url);
-            //    var ms = Convert.ToDouble(curToken.expires_in) - 1000;
-            //    System.Web.HttpContext.Current.Cache.Insert("AccessToken_40161714", curToken.access_token, null,
-            //                                     DateTime.Now.Add(System.TimeSpan.FromSeconds(ms)),
-            //                                     System.TimeSpan.Zero);
-
-            //    return curToken.access_token;
-            //}
         }
 
         private AccessToken AccessTokenRequest(string queryString)
