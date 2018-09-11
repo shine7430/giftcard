@@ -125,3 +125,9 @@ D:\Spreadtrum\Source\Repos\giftcard\giftcard\bin\AllTrustUs.Data.dll.config
 D:\Spreadtrum\Source\Repos\giftcard\giftcard\bin\zh-Hans\EntityFramework.resources.dll
 D:\Spreadtrum\Source\Repos\giftcard\giftcard\bin\zh-Hans\EntityFramework.SqlServer.resources.dll
 D:\Spreadtrum\Source\Repos\giftcard\giftcard\bin\MySql.Data.Entity.EF6.xml
+D:\Spreadtrum\Source\Repos\giftcard\giftcard\bin\ICSharpCode.SharpZipLib.dll
+D:\Spreadtrum\Source\Repos\giftcard\giftcard\bin\NPOI.dll
+D:\Spreadtrum\Source\Repos\giftcard\giftcard\bin\NPOI.OOXML.dll
+D:\Spreadtrum\Source\Repos\giftcard\giftcard\bin\NPOI.OpenXml4Net.dll
+D:\Spreadtrum\Source\Repos\giftcard\giftcard\bin\NPOI.OpenXmlFormats.dll
+D:\Spreadtrum\Source\Repos\giftcard\giftcard\bin\NPOI.xml

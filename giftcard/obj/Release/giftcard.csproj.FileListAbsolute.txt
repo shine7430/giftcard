@@ -125,3 +125,9 @@ D:\Spreadtrum\Source\Repos\giftcard\giftcard\obj\Release\giftcard.csproj.CoreCom
 D:\Spreadtrum\Source\Repos\giftcard\giftcard\obj\Release\giftcard.csproj.CopyComplete
 D:\Spreadtrum\Source\Repos\giftcard\giftcard\obj\Release\AllTrustUs.giftcard.dll
 D:\Spreadtrum\Source\Repos\giftcard\giftcard\obj\Release\AllTrustUs.giftcard.pdb
+D:\Spreadtrum\Source\Repos\giftcard\giftcard\bin\ICSharpCode.SharpZipLib.dll
+D:\Spreadtrum\Source\Repos\giftcard\giftcard\bin\NPOI.dll
+D:\Spreadtrum\Source\Repos\giftcard\giftcard\bin\NPOI.OOXML.dll
+D:\Spreadtrum\Source\Repos\giftcard\giftcard\bin\NPOI.OpenXml4Net.dll
+D:\Spreadtrum\Source\Repos\giftcard\giftcard\bin\NPOI.OpenXmlFormats.dll
+D:\Spreadtrum\Source\Repos\giftcard\giftcard\bin\NPOI.xml

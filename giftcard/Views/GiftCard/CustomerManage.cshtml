@@ -1,0 +1,213 @@
+﻿
+@{
+    ViewBag.Title = "客户管理";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/JQueryControl/kendoUI/styles/kendo.common.min.css" rel="stylesheet" />
+<link href="~/Content/JQueryControl/kendoUI/CustomizeTheme/Silver/kendo.custom.css" rel="stylesheet" />
+<link href="~/Content/layer/skin/layer.css" rel="stylesheet" />
+<script src="~/Content/layer/layer.js"></script>
+<script src="~/Content/JQueryControl/kendoUI/js/kendo.all.min.js"></script>
+<script src="~/Content/JQueryControl/kendoUI/js/jszip.min.js"></script>
+
+<h2>客户管理</h2>
+
+<script>
+    
+    $(function () {
+
+        if (localStorage.getItem("cdata") != undefined) {
+            ShowCustomer(JSON.parse(localStorage.getItem("cdata")))
+        }
+        else {
+            loadcustomer(1);
+        }
+
+    })
+
+    function loadcustomer(pageno) {
+        layer.load(2);
+        $.ajax({
+            type: "POST",
+            async: true,
+            url: "@Url.Action("GetCustomer")",
+            contentType: "application/x-www-form-urlencoded", //必须有
+            data: { id: '@ViewBag.appcode', pageno : pageno},
+            //currentorder.toString()
+            success: function (returndata) {
+                var result = JSON.parse(returndata);
+                if (result.response.record_list.length > 0) {
+
+                    var _Logs = [];
+                    var _data = result.response.record_list;
+                    localStorage.setItem("cdata", JSON.stringify(_data));
+                    ShowCustomer(_data);
+
+                }
+                layer.closeAll();
+            },
+            error: function (x, e) {
+                layer.alert("消息发送异常，请重试。");
+            },
+            complete: function (x) {
+                //alert("complete");
+            }
+        });
+
+
+    }
+
+    function ShowCustomer(_Logs) {
+        
+        $("#tableCustomer").html();
+        $("#tableCustomer").kendoGrid({
+            toolbar: ["excel"],
+            excel: {
+                fileName: "客户列表.xlsx",
+                allPages: true
+            },
+            excelExport: exportGridWithTemplatesContent,
+            dataSource: {
+                data: _Logs,
+                //group: [{ field: "CustomerName" }, { field: "CellNumber" }, { field: "Address" }],
+                schema: {
+                    model: {
+                        fields: {
+                            name: { type: "string" },
+                            mobile: { type: "number" },
+                            trade_count: { type: "number" },
+                            created_at: { type: "string" }
+                        }
+                    }
+                },
+                pageSize: 20
+            },
+            //height: 1000,
+            scrollable: false,
+            sortable: true,
+            groupable: false,
+            columnMenu: false,
+            pageable: true,
+            pageable: {
+                input: true,
+                numeric: false,
+                buttonCount: 10,
+                pageSizes: true
+            },
+            columns: [
+                //{ field: "id", width: "3%", title: "id", encoded: false },
+                //{ field: "name", width: "10%", title: "name", encoded: false },
+                {
+                    width: "10%",
+                    field: "name",
+                    template: function (e) {
+
+                        var _name = e.name;
+                        if (e.name != "") {
+                            return e.name;
+                        }
+                        else if (e.mobile != null && e.mobile != "") {
+                            return e.mobile;
+                        }
+                        else {
+                            return "客户";
+                        }
+                    },
+                    headerTemplate: "姓名"
+                },
+                { field: "mobile", width: "5%", title: "手机", encoded: false },
+                { field: "trade_count", width: "5%", title: "交易次数", encoded: false },
+                //{ field: "created_at", width: "5%", title: "创建时间", encoded: false },
+                {
+                    width: "10%",
+                    field: "created_at",
+                    template: function (e) {
+
+                        var timestamp3 = e.created_at;
+                        var newDate = new Date();
+                        newDate.setTime(timestamp3 * 1000);
+
+                        return newDate.format('yyyy-MM-dd hh:mm:ss')
+                    },
+                    headerTemplate: "创建时间"
+                }
+
+            ]
+        });
+
+    }
+    function exportGridWithTemplatesContent(e) {
+        var dataSource = e.sender.dataSource;
+        var gridColumns = e.sender.columns;
+        var sheet = e.workbook.sheets[0];
+        var visibleGridColumns = [];
+        var columnTemplates = [];
+        var dataItem;
+        // Create element to generate templates in.
+        var elem = document.createElement('div');
+
+        // Get a list of visible columns
+        for (var i = 0; i < gridColumns.length; i++) {
+            if (!gridColumns[i].hidden) {
+                visibleGridColumns.push(gridColumns[i]);
+            }
+        }
+
+        // Create a collection of the column templates, together with the current column index
+        for (var i = 0; i < visibleGridColumns.length; i++) {
+            if (visibleGridColumns[i].template) {
+                columnTemplates.push({ cellIndex: i, template: kendo.template(visibleGridColumns[i].template) });
+            }
+        }
+
+        // Traverse all exported rows.
+        for (var i = 1; i < sheet.rows.length; i++) {
+            var row = sheet.rows[i];
+            // Traverse the column templates and apply them for each row at the stored column position.
+
+            // Get the data item corresponding to the current row.
+            var dataItem = dataSource.at(i - 1);
+            for (var j = 0; j < columnTemplates.length; j++) {
+                var columnTemplate = columnTemplates[j];
+                // Generate the template content for the current cell.
+                elem.innerHTML = columnTemplate.template(dataItem);
+                if (row.cells[columnTemplate.cellIndex] != undefined)
+                    // Output the text content of the templated cell into the exported cell.
+                    row.cells[columnTemplate.cellIndex].value = elem.textContent || elem.innerText || "";
+            }
+        }
+    }
+    Date.prototype.format = function (format) {
+        var date = {
+            "M+": this.getMonth() + 1,
+            "d+": this.getDate(),
+            "h+": this.getHours(),
+            "m+": this.getMinutes(),
+            "s+": this.getSeconds(),
+            "q+": Math.floor((this.getMonth() + 3) / 3),
+            "S+": this.getMilliseconds()
+        };
+        if (/(y+)/i.test(format)) {
+            format = format.replace(RegExp.$1, (this.getFullYear() + '').substr(4 - RegExp.$1.length));
+        }
+        for (var k in date) {
+            if (new RegExp("(" + k + ")").test(format)) {
+                format = format.replace(RegExp.$1, RegExp.$1.length == 1
+                    ? date[k] : ("00" + date[k]).substr(("" + date[k]).length));
+            }
+        }
+        return format;
+    }
+
+</script>
+
+<div class="container">
+    <div class="row">
+        <a class="btn btn-danger btn-small" onclick="loadcustomer(1)" href="#">获取最新</a>
+    </div>
+    <div class="row">
+
+        <div id="tableCustomer"></div>
+    </div>
+
+</div>

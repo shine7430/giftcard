@@ -29,4 +29,3 @@ D:\Spreadtrum\Source\Repos\giftcard\WXPayAPILib\obj\Debug\AllTrustUs.WXPayAPILib
 D:\Spreadtrum\Source\Repos\giftcard\WXPayAPILib\obj\Debug\AllTrustUs.WXPayAPILib.csproj.CopyComplete
 D:\Spreadtrum\Source\Repos\giftcard\WXPayAPILib\obj\Debug\AllTrustUs.WXPayAPILib.dll
 D:\Spreadtrum\Source\Repos\giftcard\WXPayAPILib\obj\Debug\AllTrustUs.WXPayAPILib.pdb
-D:\Spreadtrum\Source\Repos\giftcard\WXPayAPILib\obj\Debug\AllTrustUs.WXPayAPILib.csprojAssemblyReference.cache

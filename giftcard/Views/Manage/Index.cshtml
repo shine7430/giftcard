@@ -1,0 +1,203 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/JQueryControl/kendoUI/styles/kendo.common.min.css" rel="stylesheet" />
+    <link href="~/Content/JQueryControl/kendoUI/CustomizeTheme/Silver/kendo.custom.css" rel="stylesheet" />
+    <link href="~/Content/layer/skin/layer.css" rel="stylesheet" />
+
+    <script src="~/Scripts/jquery.min.js"></script>
+
+    <script src="~/Scripts/jszip.js"></script>
+
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Scripts/Common.js"></script>
+    <script src="~/Content/layer/layer.js"></script>
+    <script src="~/Content/JQueryControl/kendoUI/js/kendo.all.min.js"></script>
+    <script>
+
+        $(document).ready(function () {
+            $('#UploadFile').on('change', function (e) {
+                var index = layer.load(1, {
+                    shade: [0.5, '#fff'] //0.1透明度的白色背景
+                });
+                //取得檔案
+                var files = e.target.files;
+                if (files.length > 0) {
+                    if (window.FormData !== undefined) {
+                        var data = new FormData();
+
+                        for (var x = 0; x < files.length; x++) {
+                            data.append(files[x].name, files[x]);
+                        }
+
+                        //可上傳多檔案
+                        $.ajax({
+                            type: "POST",
+                            url: '@Url.Action("UploadByAjax", "Manage")',
+                            contentType: false,
+                            processData: false,
+                            data: data,
+                            success: function (result) {
+                                var _data = JSON.parse(result);
+                                ShowDaDa(_data.Table);
+                                ShowtableCaiGou(_data.Table1);
+                                layer.closeAll();
+                            },
+                            error: function (xhr, status) {
+                                layer.closeAll();
+                                layer.alert("上传失败");
+                                
+                            }
+                        });
+                    } else {
+                        layer.alert("此浏览器不支援HTML5文件上传！");
+                    }
+                }
+            });
+        });
+
+        function ShowDaDa(_data) {
+            $("#tableDaDa").html();
+            $("#tableDaDa").kendoGrid({
+                toolbar: ["excel"],
+                excel: {
+                    fileName: "达达数据.xlsx",
+                    allPages: true
+                },
+                dataSource: {
+                    data: _data,
+                    //group: [{ field: "CustomerName" }, { field: "CellNumber" }, { field: "Address" }],
+                    schema: {
+                        model: {
+                            fields: {
+                                id: { type: "number" },
+                                CustomerName: { type: "string" },
+                                CellNumber: { type: "number" },
+                                Address: { type: "string" },
+                                ProductName: { type: "string" }
+                            }
+                        }
+                    },
+                    pageSize: 20
+                },
+                //height: 1000,
+                scrollable: false,
+                sortable: true,
+                groupable: false,
+                //filterable: {
+                //    //extra: true,
+                //    operators: {
+                //        string: {
+                //            contains: "Contains",
+                //            startswith: "Starts with",
+                //            endswith: "End with"
+                //        }
+                //    }
+                //},
+                columnMenu: false,
+                pageable: true,
+                pageable: {
+                    input: true,
+                    numeric: false,
+                    buttonCount: 10,
+                    pageSizes: true
+                },
+                columns: [
+                    { field: "rowno", width: "1%", title: "编号", encoded: false },
+                    { field: "CustomerName", title: "收货人姓名*", encoded: false },
+                    { field: "CellNumber", title: "收货人电话*", encoded: false },
+                    { field: "Address", title: "详细地址*", encoded: false },
+                    { field: "Product", title: "物品类型", encoded: false },
+                    //{ field: "generatedate", width: "5%", title: "生成日期", encoded: false },
+                    //{ field: "isusedt", width: "5%", title: "是否使用", encoded: false },
+                    //{ field: "enabledt", width: "5%", title: "是否激活", encoded: false },
+                    //{ field: "useddate", width: "5%", title: "领用日期", encoded: false },
+                    ////{ field: "forcompany", width: "5%", title: "forcompany", encoded: false },
+                    ////{ field: "expireddate", width: "5%", title: "expireddate", encoded: false, format: "{0:yyyy/MM/dd}" },
+                    //{ field: "usedmobile", width: "5%", title: "手机号", encoded: false },
+                    //{ field: "usedname", width: "5%", title: "领用人", encoded: false },
+                    ////{ field: "usedopenid", width: "5%", title: "usedopenid", encoded: false }
+                ]
+            });
+        }
+
+        function ShowtableCaiGou(_data) {
+            $("#tableCaiGou").html();
+            $("#tableCaiGou").kendoGrid({
+                toolbar: ["excel"],
+                excel: {
+                    fileName: "采购数据.xlsx",
+                    allPages: true
+                },
+                dataSource: {
+                    data: _data,
+                    schema: {
+                        model: {
+                            fields: {
+                                ProductName: { type: "string" },
+                                Spec: { type: "string" },
+                                SUM: { type: "number" }
+                            }
+                        }
+                    },
+                    pageSize: 20
+                },
+                //height: 1000,
+                scrollable: false,
+                sortable: true,
+                groupable: false,
+
+                columnMenu: false,
+                pageable: true,
+                pageable: {
+                    input: true,
+                    numeric: false,
+                    buttonCount: 10,
+                    pageSizes: true
+                },
+                columns: [
+                    { field: "ProductName", title: "产品*", encoded: false },
+                    { field: "Spec", title: "规格*", encoded: false },
+                    { field: "SUM", title: "汇总*", encoded: false }
+                ]
+            });
+        }
+
+    </script>
+</head>
+<body>
+    <div class="container">
+        @*<form class="form-horizontal" action="~/Manage/Upload" role="form" method="post" enctype="multipart/form-data">
+            <table style="margin:5px;height:70px;">
+                <tr>
+                    <td>请选择文件：</td>
+                    <td width="5px;"></td>
+                    <td><input type="file" id="fileUpload" name="fileUpload"></td>
+                    <td><button type="submit">上传</button></td>
+                </tr>
+            </table>
+        </form>*@
+        @*<input type="file" id="fileUpload1" name="fileUpload1" multiple>*@
+        <div>
+            <input type="file" name="UploadFile" id="UploadFile" multiple />
+        </div>
+        <div class="row">
+            发货清单：
+            <div id="tableDaDa"></div>
+        </div>
+        <div class="row">
+            采购清单：
+            <div id="tableCaiGou"></div>
+        </div>
+    </div>
+</body>
+</html>
